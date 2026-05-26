@@ -278,17 +278,12 @@ ClassMethod WriteVectorSearch(vectorSearch As %DynamicObject) [ Internal ]
         Quit
     }
 
-    Write "- Status: ", ..SafeGet(vectorSearch, "status"), !
-    Write "- Query: ", ..SafeGet(vectorSearch, "query"), !
-    Write "- TopK: ", ..SafeGet(vectorSearch, "topK"), !
-
     Set snippets = vectorSearch.%Get("snippets")
     If '$ISOBJECT(snippets) || (snippets.%Size()=0) {
-        Write "- Snippets: (none)", !
+        Write "- No additional contextual guidance available.", !
         Quit
     }
 
-    Write "- Snippets:", !
     For i=0:1:(snippets.%Size()-1) {
         Set s = snippets.%Get(i)
         If '$ISOBJECT(s) {
@@ -303,11 +298,7 @@ ClassMethod WriteVectorSearch(vectorSearch As %DynamicObject) [ Internal ]
         If txt = "" {
             Continue
         }
-        If src '= "" {
-            Write "  - [", topic, "] ", txt, " (source: ", src, ")", !
-        } Else {
-            Write "  - [", topic, "] ", txt, !
-        }
+        Write "- ", txt, !
     }
 }
 

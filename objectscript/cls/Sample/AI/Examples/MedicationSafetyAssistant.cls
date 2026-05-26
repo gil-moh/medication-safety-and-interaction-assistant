@@ -111,9 +111,7 @@ ClassMethod WriteNarrative(snapshot As %DynamicObject, detailMode As %String = "
     Write "- Keep the patient-facing explanation plain and specific to the current regimen.", !
 
     Write !, "Context-Aware Guidance", !
-    If $ISOBJECT(vectorSearch) {
-        Do ..WriteBulletArray("Vector Search", vectorSearch)
-    }
+    Do ..WriteVectorSearch(vectorSearch)
 
     If detailMode '= "brief" {
         Write !, "Review Notes", !
@@ -269,6 +267,47 @@ ClassMethod WriteActionArray(arr As %DynamicObject) [ Internal ]
             Set sla = 72
         }
         Write "- [", p, " | ", t, " | SLA<=", sla, "h] ", a, !
+    }
+}
+
+ClassMethod WriteVectorSearch(vectorSearch As %DynamicObject) [ Internal ]
+{
+    Write "Vector Search", !
+    If '$ISOBJECT(vectorSearch) {
+        Write "- (none)", !
+        Quit
+    }
+
+    Write "- Status: ", ..SafeGet(vectorSearch, "status"), !
+    Write "- Query: ", ..SafeGet(vectorSearch, "query"), !
+    Write "- TopK: ", ..SafeGet(vectorSearch, "topK"), !
+
+    Set snippets = vectorSearch.%Get("snippets")
+    If '$ISOBJECT(snippets) || (snippets.%Size()=0) {
+        Write "- Snippets: (none)", !
+        Quit
+    }
+
+    Write "- Snippets:", !
+    For i=0:1:(snippets.%Size()-1) {
+        Set s = snippets.%Get(i)
+        If '$ISOBJECT(s) {
+            Continue
+        }
+        Set topic = ..SafeGet(s, "topic")
+        Set txt = ..SafeGet(s, "text")
+        Set src = ..SafeGet(s, "source")
+        If topic = "" {
+            Set topic = "guidance"
+        }
+        If txt = "" {
+            Continue
+        }
+        If src '= "" {
+            Write "  - [", topic, "] ", txt, " (source: ", src, ")", !
+        } Else {
+            Write "  - [", topic, "] ", txt, !
+        }
     }
 }
 

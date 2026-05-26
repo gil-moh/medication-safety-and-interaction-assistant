@@ -173,7 +173,7 @@ ClassMethod BuildMedicationReviewSnapshot(patientId As %String, limit As %Intege
         "allergyCrossCheckFindings": (allergyFindings),
         "adherenceSignals": (adherenceFindings),
         "recommendedActions": (recommendedActions),
-        "vectorSearch": (..GetGuidanceSnippets("medication safety and interaction counseling", 3)),
+        "vectorSearch": (..GetGuidanceSnippets("medication safety and interaction counseling", 3, medList, blackBoxFindings, familyHistoryFindings, interactionFindings)),
         "raw": {
             "medicationRequests": (requests),
             "medicationStatements": (statements),
@@ -186,16 +186,78 @@ ClassMethod BuildMedicationReviewSnapshot(patientId As %String, limit As %Intege
     }
 }
 
-/// Placeholder hook for Vector Search-backed contextual guidance.
-ClassMethod GetGuidanceSnippets(query As %String, topK As %Integer = 3) As %DynamicObject
+/// Local fallback hook for contextual guidance snippets.
+/// Replace with real IRIS Vector Search retrieval in production.
+ClassMethod GetGuidanceSnippets(query As %String, topK As %Integer = 3, medList As %DynamicArray = "", blackBoxFindings As %DynamicArray = "", familyHistoryFindings As %DynamicArray = "", interactionFindings As %DynamicArray = "") As %DynamicObject
 {
     Set k = $SELECT(topK>10:10, topK<1:1, 1:topK)
+    Set snippets = []
+
+    // High-priority clinical counseling for black-box warnings.
+    If $ISOBJECT(blackBoxFindings) && (blackBoxFindings.%Size()>0) {
+        Set f = blackBoxFindings.%Get(0)
+        If $ISOBJECT(f) {
+            Do snippets.%Push({
+                "topic": "black-box safety",
+                "text": "Boxed warning present. Perform urgent risk mitigation and specialist review before routine counseling.",
+                "source": "local-guidance-fallback",
+                "score": 0.99
+            })
+        }
+    }
+
+    If $ISOBJECT(interactionFindings) && (interactionFindings.%Size()>0) {
+        Do snippets.%Push({
+            "topic": "drug-drug interaction counseling",
+            "text": "When a major interaction is detected, verify indication, confirm monitoring plan, and educate on red-flag symptoms.",
+            "source": "local-guidance-fallback",
+            "score": 0.95
+        })
+    }
+
+    If $ISOBJECT(familyHistoryFindings) && (familyHistoryFindings.%Size()>0) {
+        Do snippets.%Push({
+            "topic": "family-history risk counseling",
+            "text": "Family history can increase susceptibility for harm in selected medications; strengthen follow-up and shared decision counseling.",
+            "source": "local-guidance-fallback",
+            "score": 0.93
+        })
+    }
+
+    If $ISOBJECT(medList) && (medList.%Size()>0) {
+        Do snippets.%Push({
+            "topic": "medication reconciliation",
+            "text": "Review each active medication for indication, adherence, and duplication; reconcile MedicationRequest with patient-reported use.",
+            "source": "local-guidance-fallback",
+            "score": 0.90
+        })
+    }
+
+    If snippets.%Size()=0 {
+        Do snippets.%Push({
+            "topic": "general medication safety",
+            "text": "No high-priority contextual snippets were matched. Continue standard medication safety review and counseling.",
+            "source": "local-guidance-fallback",
+            "score": 0.70
+        })
+    }
+
+    Set limited = []
+    For i=0:1:(k-1) {
+        If i>=snippets.%Size() {
+            Continue
+        }
+        Do limited.%Push(snippets.%Get(i))
+    }
+
     Return {
-        "enabled": (0),
+        "enabled": (1),
+        "mode": "local-guidance-fallback",
         "topK": (k),
         "query": (query),
-        "status": "not-configured",
-        "hint": "Connect this method to IRIS Vector Search to retrieve drug guidance or patient education snippets."
+        "status": "enabled-local-fallback",
+        "hint": "Fallback snippets are active. Replace this method with IRIS Vector Search retrieval for semantic ranking over your guidance corpus.",
+        "snippets": (limited)
     }
 }
 

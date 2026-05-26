@@ -105,7 +105,9 @@ ClassMethod WriteNarrative(snapshot As %DynamicObject, detailMode As %String = "
     Do ..WriteActionArray(recommendedActions)
 
     Write !, "Counseling Summary", !
-    Write "- Address any black box warnings first before routine counseling steps.", !
+    If ..HasItems(blackBoxWarnings) {
+        Write "- Address black box warnings first before routine counseling steps.", !
+    }
     Write "- Review the medication list for duplicates, medication interactions, medication-food cautions, pregnancy/lactation/age contraindications, driving/heavy-machinery cautions, black box warnings, drug-condition warnings, mental-health warnings, family-history risks, allergy conflicts, or outdated therapy.", !
     Write "- Confirm how the patient is taking each medicine and whether any doses were missed.", !
     Write "- Keep the patient-facing explanation plain and specific to the current regimen.", !
@@ -300,6 +302,14 @@ ClassMethod WriteVectorSearch(vectorSearch As %DynamicObject) [ Internal ]
         }
         Write "- ", txt, !
     }
+}
+
+ClassMethod HasItems(arr As %DynamicObject) As %Boolean [ Internal ]
+{
+    If '$ISOBJECT(arr) {
+        Return 0
+    }
+    Return (arr.%Size()>0)
 }
 
 ClassMethod CountFromCounts(counts As %DynamicObject, key As %String) As %String [ Internal ]

@@ -113,12 +113,7 @@ ClassMethod BuildClinicianNarrative(snapshot As %DynamicObject, detailMode As %S
 
     Do ..AddLine(.out)
     Do ..AddLine(.out, "Counseling Summary")
-    If ..HasItems(blackBoxWarnings) {
-        Do ..AddLine(.out, "- Address black box warnings first before routine counseling steps.")
-    }
-    Do ..AddLine(.out, "- Review the medication list for duplicates, medication interactions, medication-food cautions, pregnancy/lactation/age contraindications, driving/heavy-machinery cautions, black box warnings, drug-condition warnings, mental-health warnings, family-history risks, allergy conflicts, or outdated therapy.")
-    Do ..AddLine(.out, "- Confirm how the patient is taking each medicine and whether any doses were missed.")
-    Do ..AddLine(.out, "- Keep the patient-facing explanation plain and specific to the current regimen.")
+    Do ..AppendCounselingSummary(.out, blackBoxWarnings, dupes, interactions, foodInteractions, populationContraindications, activityCautions, conditionWarnings, labWarnings, qtWarnings, anticholinergicWarnings, mentalHealthWarnings, familyHistoryWarnings, allergies, adherence)
 
     Do ..AddLine(.out)
     Do ..AddLine(.out, "Context-Aware Guidance")
@@ -379,12 +374,7 @@ ClassMethod WriteNarrative(snapshot As %DynamicObject, detailMode As %String = "
     Do ..WriteActionArray(recommendedActions)
 
     Write !, "Counseling Summary", !
-    If ..HasItems(blackBoxWarnings) {
-        Write "- Address black box warnings first before routine counseling steps.", !
-    }
-    Write "- Review the medication list for duplicates, medication interactions, medication-food cautions, pregnancy/lactation/age contraindications, driving/heavy-machinery cautions, black box warnings, drug-condition warnings, mental-health warnings, family-history risks, allergy conflicts, or outdated therapy.", !
-    Write "- Confirm how the patient is taking each medicine and whether any doses were missed.", !
-    Write "- Keep the patient-facing explanation plain and specific to the current regimen.", !
+    Do ..WriteCounselingSummary(blackBoxWarnings, dupes, interactions, foodInteractions, populationContraindications, activityCautions, conditionWarnings, labWarnings, qtWarnings, anticholinergicWarnings, mentalHealthWarnings, familyHistoryWarnings, allergies, adherence)
 
     Write !, "Context-Aware Guidance", !
     Do ..WriteVectorSearch(vectorSearch)
@@ -575,6 +565,76 @@ ClassMethod WriteVectorSearch(vectorSearch As %DynamicObject) [ Internal ]
             Continue
         }
         Write "- ", txt, !
+    }
+}
+
+ClassMethod BuildCounselingBullets(blackBoxWarnings As %DynamicObject, dupes As %DynamicObject, interactions As %DynamicObject, foodInteractions As %DynamicObject, populationContraindications As %DynamicObject, activityCautions As %DynamicObject, conditionWarnings As %DynamicObject, labWarnings As %DynamicObject, qtWarnings As %DynamicObject, anticholinergicWarnings As %DynamicObject, mentalHealthWarnings As %DynamicObject, familyHistoryWarnings As %DynamicObject, allergies As %DynamicObject, adherence As %DynamicObject) As %DynamicArray [ Internal ]
+{
+    Set bullets = []
+
+    Do ..AddCounselingBulletIfFindings(.bullets, blackBoxWarnings, "Prioritize immediate mitigation of black-box risks identified above.")
+    Do ..AddCounselingBulletIfFindings(.bullets, dupes, "Reconcile possible duplicate therapy and confirm the intended regimen.")
+    Do ..AddCounselingBulletIfFindings(.bullets, interactions, "Review flagged drug-drug interactions and ensure an explicit monitoring plan.")
+    Do ..AddCounselingBulletIfFindings(.bullets, foodInteractions, "Provide targeted diet or substance counseling for the flagged medication-food risks.")
+    Do ..AddCounselingBulletIfFindings(.bullets, populationContraindications, "Reassess age, pregnancy, or lactation contraindication risks before continuing therapy.")
+    Do ..AddCounselingBulletIfFindings(.bullets, activityCautions, "Counsel on driving or machinery restrictions tied to the current therapy.")
+    Do ..AddCounselingBulletIfFindings(.bullets, conditionWarnings, "Validate medication safety against active conditions and adjust treatment if needed.")
+    Do ..AddCounselingBulletIfFindings(.bullets, labWarnings, "Order or verify follow-up labs for medication-related threshold warnings.")
+    Do ..AddCounselingBulletIfFindings(.bullets, qtWarnings, "Review QT or arrhythmia risk and consider ECG or electrolyte reassessment when indicated.")
+    Do ..AddCounselingBulletIfFindings(.bullets, anticholinergicWarnings, "Reduce anticholinergic burden where possible and monitor cognition and fall risk.")
+    Do ..AddCounselingBulletIfFindings(.bullets, mentalHealthWarnings, "Screen for mental-health adverse effects linked to the flagged medications.")
+    Do ..AddCounselingBulletIfFindings(.bullets, familyHistoryWarnings, "Discuss family-history-related vulnerability and set tighter follow-up expectations.")
+    Do ..AddCounselingBulletIfFindings(.bullets, allergies, "Resolve any medication-allergy conflicts before administration.")
+    Do ..AddCounselingBulletIfFindings(.bullets, adherence, "Perform medication reconciliation with patient-reported use and missed doses.")
+
+    If bullets.%Size()=0 {
+        Do bullets.%Push("No additional counseling priorities were identified from current data.")
+    }
+
+    Return bullets
+}
+
+ClassMethod AddCounselingBulletIfFindings(ByRef bullets As %DynamicArray, findings As %DynamicObject, text As %String) [ Internal ]
+{
+    If (text="") || ('$ISOBJECT(bullets)) {
+        Quit
+    }
+    If ..HasItems(findings) {
+        Do bullets.%Push(text)
+    }
+}
+
+ClassMethod WriteCounselingSummary(blackBoxWarnings As %DynamicObject, dupes As %DynamicObject, interactions As %DynamicObject, foodInteractions As %DynamicObject, populationContraindications As %DynamicObject, activityCautions As %DynamicObject, conditionWarnings As %DynamicObject, labWarnings As %DynamicObject, qtWarnings As %DynamicObject, anticholinergicWarnings As %DynamicObject, mentalHealthWarnings As %DynamicObject, familyHistoryWarnings As %DynamicObject, allergies As %DynamicObject, adherence As %DynamicObject) [ Internal ]
+{
+    Set bullets = ..BuildCounselingBullets(blackBoxWarnings, dupes, interactions, foodInteractions, populationContraindications, activityCautions, conditionWarnings, labWarnings, qtWarnings, anticholinergicWarnings, mentalHealthWarnings, familyHistoryWarnings, allergies, adherence)
+    If '$ISOBJECT(bullets) || (bullets.%Size()=0) {
+        Write "- No additional counseling priorities were identified from current data.", !
+        Quit
+    }
+
+    For i=0:1:(bullets.%Size()-1) {
+        Set one = bullets.%Get(i)
+        If one = "" {
+            Continue
+        }
+        Write "- ", one, !
+    }
+}
+
+ClassMethod AppendCounselingSummary(ByRef out As %String, blackBoxWarnings As %DynamicObject, dupes As %DynamicObject, interactions As %DynamicObject, foodInteractions As %DynamicObject, populationContraindications As %DynamicObject, activityCautions As %DynamicObject, conditionWarnings As %DynamicObject, labWarnings As %DynamicObject, qtWarnings As %DynamicObject, anticholinergicWarnings As %DynamicObject, mentalHealthWarnings As %DynamicObject, familyHistoryWarnings As %DynamicObject, allergies As %DynamicObject, adherence As %DynamicObject) [ Internal ]
+{
+    Set bullets = ..BuildCounselingBullets(blackBoxWarnings, dupes, interactions, foodInteractions, populationContraindications, activityCautions, conditionWarnings, labWarnings, qtWarnings, anticholinergicWarnings, mentalHealthWarnings, familyHistoryWarnings, allergies, adherence)
+    If '$ISOBJECT(bullets) || (bullets.%Size()=0) {
+        Do ..AddLine(.out, "- No additional counseling priorities were identified from current data.")
+        Quit
+    }
+
+    For i=0:1:(bullets.%Size()-1) {
+        Set one = bullets.%Get(i)
+        If one = "" {
+            Continue
+        }
+        Do ..AddLine(.out, "- " _ one)
     }
 }
 

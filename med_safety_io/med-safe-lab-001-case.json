@@ -1,0 +1,71 @@
+{
+  "patientId": "med-safe-lab-001",
+  "generatedAt": "2026-05-26T10:03:01",
+  "inputResources": [
+    {
+      "resourceType": "Patient",
+      "id": "med-safe-lab-001",
+      "name": [
+        {
+          "use": "official",
+          "family": "Lavi",
+          "given": [
+            "Shai"
+          ]
+        }
+      ],
+      "gender": "male",
+      "birthDate": "1968-10-14"
+    },
+    {
+      "resourceType": "MedicationRequest",
+      "id": "medrx-med-safe-lab-001-ibuprofen",
+      "subject": {
+        "reference": "Patient/med-safe-lab-001"
+      },
+      "status": "active",
+      "intent": "order",
+      "medicationCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+            "code": "5640",
+            "display": "Ibuprofen 400 MG Oral Tablet"
+          }
+        ],
+        "text": "Ibuprofen 400 MG Oral Tablet"
+      },
+      "authoredOn": "2025-10-01"
+    },
+    {
+      "resourceType": "Observation",
+      "id": "obs-med-safe-lab-001-egfr",
+      "status": "final",
+      "code": {
+        "coding": [
+          {
+            "system": "http://loinc.org",
+            "code": "33914-3",
+            "display": "Glomerular filtration rate/1.73 sq M.predicted [Volume Rate/Area] in Serum or Plasma by Creatinine-based formula (MDRD)"
+          }
+        ],
+        "text": "Glomerular filtration rate/1.73 sq M.predicted [Volume Rate/Area] in Serum or Plasma by Creatinine-based formula (MDRD)"
+      },
+      "subject": {
+        "reference": "Patient/med-safe-lab-001"
+      },
+      "effectiveDateTime": "2026-05-20",
+      "valueQuantity": {
+        "value": 24,
+        "unit": "mL/min/1.73m2",
+        "system": "http://unitsofmeasure.org",
+        "code": "mL/min/{1.73_m2}"
+      }
+    }
+  ],
+  "assistantOutput": "\ufeff\nNode: c50f412ed9c1, Instance: IRIS\n\nUSER>\n\nUSER>\n\nUSER>\n\nUSER>\n\nUSER>\n=== SNAPSHOT JSON ===\n\nUSER>\n{\"patientId\":\"med-safe-lab-001\",\"generatedAt\":\"2026-05-26 07:02:38\",\"resourceCounts\":{\"medicationRequests\":1,\"medicationStatements\":0,\"allergies\":0,\"conditions\":0,\"familyHistory\":0,\"observations\":1},\"activeMedicationList\":[{\"name\":\"Ibuprofen 400 MG Oral Tablet\",\"normalizedKey\":\"ibuprofen\",\"rxnormCode\":\"5640\",\"resourceId\":\"medrx-med-safe-lab-001-ibuprofen\",\"status\":\"active\",\"source\":\"MedicationRequest\",\"authoredOn\":\"2025-10-01\",\"effectiveDateTime\":\"\"}],\"duplicateTherapyFindings\":[],\"medicationInteractionFindings\":[],\"medicationFoodInteractionFindings\":[],\"medicationPopulationContraindicationFindings\":[],\"medicationActivityCautionFindings\":[],\"medicationBlackBoxWarningFindings\":[],\"medicationConditionWarningFindings\":[],\"medicationLabThresholdWarningFindings\":[{\"risk\":\"possible-lab-threshold-medication-warning\",\"mode\":\"strict\",\"severity\":\"high\",\"medication\":\"Ibuprofen 400 MG Oral Tablet\",\"medicationResourceId\":\"medrx-med-safe-lab-001-ibuprofen\",\"labName\":\"Glomerular filtration rate/1.73 sq M.predicted [Volume Rate/Area] in Serum or Plasma by Creatinine-based formula (MDRD)\",\"labCode\":\"33914-3\",\"labObservationId\":\"obs-med-safe-lab-001-egfr\",\"labValue\":24,\"labUnit\":\"mL/min/1.73m2\",\"reasoning\":\"Warning for Ibuprofen 400 MG Oral Tablet because Glomerular filtration rate/1.73 sq M.predicted [Volume Rate/Area] in Serum or Plasma by Creatinine-based formula (MDRD) is 24 mL/min/1.73m2.\",\"message\":\"eGFR below 30 suggests high renal risk with NSAID therapy. Reassess analgesic choice and renal plan.\",\"source\":{\"type\":\"knowledge-base\",\"table\":\"local-medication-lab-threshold-rules-v1\",\"ruleId\":\"lab-nsaid-egfr-below-30\",\"reference\":\"local-curated-rule\"}}],\"medicationQTWarningFindings\":[],\"medicationAnticholinergicBurdenFindings\":[],\"medicationMentalHealthWarningFindings\":[],\"medicationFamilyHistoryWarningFindings\":[],\"allergyCrossCheckFindings\":[],\"adherenceSignals\":[{\"risk\":\"possible-adherence-gap\",\"message\":\"MedicationRequest records exist but no MedicationStatement records were found. Consider adherence and reconciliation follow-up.\"},{\"risk\":\"possible-stale-prescription\",\"medication\":\"Ibuprofen 400 MG Oral Tablet\",\"medicationResourceId\":\"medrx-med-safe-lab-001-ibuprofen\",\"ageDays\":237,\"message\":\"Active prescription is older than 180 days. Confirm current use, refill status, and regimen relevance.\"}],\"recommendedActions\":[{\"actionType\":\"labs\",\"priority\":\"high\",\"slaHours\":24,\"action\":\"eGFR below 30 suggests high renal risk with NSAID therapy. Reassess analgesic choice and renal plan.\",\"sourceRisk\":\"possible-lab-threshold-medication-warning\"},{\"actionType\":\"monitor\",\"priority\":\"routine\",\"slaHours\":72,\"action\":\"Perform medication reconciliation and adherence interview.\",\"sourceRisk\":\"possible-adherence-gap\"},{\"actionType\":\"monitor\",\"priority\":\"routine\",\"slaHours\":72,\"action\":\"Confirm active use of Ibuprofen 400 MG Oral Tablet and renew/discontinue outdated orders.\",\"sourceRisk\":\"possible-stale-prescription\"}],\"vectorSearch\":{\"enabled\":0,\"topK\":3,\"query\":\"medication safety and interaction counseling\",\"status\":\"not-configured\",\"hint\":\"Connect this method to IRIS Vector Search to retrieve drug guidance or patient education snippets.\"},\"raw\":{\"medicationRequests\":{\"resourceType\":\"Bundle\",\"id\":\"e10b558f-58d0-11f1-975a-ca5c53d8c169\",\"type\":\"searchset\",\"timestamp\":\"2026-05-26T07:02:37Z\",\"total\":1,\"link\":[{\"relation\":\"self\",\"url\":\"http://host.docker.internal:52773/fhir/r4/MedicationRequest?_count=50&patient=med-safe-lab-001\"}],\"entry\":[{\"fullUrl\":\"http://host.docker.internal:52773/fhir/r4/MedicationRequest/medrx-med-safe-lab-001-ibuprofen\",\"resource\":{\"resourceType\":\"MedicationRequest\",\"id\":\"medrx-med-safe-lab-001-ibuprofen\",\"subject\":{\"reference\":\"Patient/med-safe-lab-001\"},\"status\":\"active\",\"intent\":\"order\",\"medicationCodeableConcept\":{\"coding\":[{\"system\":\"http://www.nlm.nih.gov/research/umls/rxnorm\",\"code\":\"5640\",\"display\":\"Ibuprofen 400 MG Oral Tablet\"}],\"text\":\"Ibuprofen 400 MG Oral Tablet\"},\"authoredOn\":\"2025-10-01\",\"meta\":{\"lastUpdated\":\"2026-05-26T07:00:06Z\",\"versionId\":\"3\"}},\"search\":{\"mode\":\"match\"}}]},\"medicationStatements\":{\"resourceType\":\"Bundle\",\"id\":\"e1329525-58d0-11f1-975a-ca5c53d8c169\",\"type\":\"searchset\",\"timestamp\":\"2026-05-26T07:02:37Z\",\"total\":0,\"link\":[{\"relation\":\"self\",\"url\":\"http://host.docker.internal:52773/fhir/r4/MedicationStatement?_count=50&patient=med-safe-lab-001\"}]},\"allergies\":{\"resourceType\":\"Bundle\",\"id\":\"e1576357-58d0-11f1-975a-ca5c53d8c169\",\"type\":\"searchset\",\"timestamp\":\"2026-05-26T07:02:38Z\",\"total\":0,\"link\":[{\"relation\":\"self\",\"url\":\"http://host.docker.internal:52773/fhir/r4/AllergyIntolerance?_count=50&patient=med-safe-lab-001\"}]},\"conditions\":{\"resourceType\":\"Bundle\",\"id\":\"e171505e-58d0-11f1-975a-ca5c53d8c169\",\"type\":\"searchset\",\"timestamp\":\"2026-05-26T07:02:38Z\",\"total\":0,\"link\":[{\"relation\":\"self\",\"url\":\"http://host.docker.internal:52773/fhir/r4/Condition?_count=50&patient=med-safe-lab-001\"}]},\"familyHistory\":{\"resourceType\":\"Bundle\",\"id\":\"e1863bd6-58d0-11f1-975a-ca5c53d8c169\",\"type\":\"searchset\",\"timestamp\":\"2026-05-26T07:02:38Z\",\"total\":0,\"link\":[{\"relation\":\"self\",\"url\":\"http://host.docker.internal:52773/fhir/r4/FamilyMemberHistory?_count=50&patient=med-safe-lab-001\"}]},\"observations\":{\"resourceType\":\"Bundle\",\"id\":\"e1975d8b-58d0-11f1-975a-ca5c53d8c169\",\"type\":\"searchset\",\"timestamp\":\"2026-05-26T07:02:38Z\",\"total\":1,\"link\":[{\"relation\":\"self\",\"url\":\"http://host.docker.internal:52773/fhir/r4/Observation?_count=50&_sort=-date&patient=med-safe-lab-001\"}],\"entry\":[{\"fullUrl\":\"http://host.docker.internal:52773/fhir/r4/Observation/obs-med-safe-lab-001-egfr\",\"resource\":{\"resourceType\":\"Observation\",\"id\":\"obs-med-safe-lab-001-egfr\",\"status\":\"final\",\"code\":{\"coding\":[{\"system\":\"http://loinc.org\",\"code\":\"33914-3\",\"display\":\"Glomerular filtration rate/1.73 sq M.predicted [Volume Rate/Area] in Serum or Plasma by Creatinine-based formula (MDRD)\"}],\"text\":\"Glomerular filtration rate/1.73 sq M.predicted [Volume Rate/Area] in Serum or Plasma by Creatinine-based formula (MDRD)\"},\"subject\":{\"reference\":\"Patient/med-safe-lab-001\"},\"effectiveDateTime\":\"2026-05-20\",\"valueQuantity\":{\"value\":24,\"unit\":\"mL/min/1.73m2\",\"system\":\"http://unitsofmeasure.org\",\"code\":\"mL/min/{1.73_m2}\"},\"meta\":{\"lastUpdated\":\"2026-05-26T07:00:06Z\",\"versionId\":\"3\"}},\"search\":{\"mode\":\"match\"}}]},\"patient\":{\"resourceType\":\"Patient\",\"id\":\"med-safe-lab-001\",\"name\":[{\"use\":\"official\",\"family\":\"Lavi\",\"given\":[\"Shai\"]}],\"gender\":\"male\",\"birthDate\":\"1968-10-14\",\"meta\":{\"lastUpdated\":\"2026-05-26T07:00:06Z\",\"versionId\":\"3\"}}}}\n\nUSER>\n=== NARRATIVE ===\n\nUSER>\n\nExample - Medication Safety and Interaction Assistant\n\nPatient Overview\n- Patient: med-safe-lab-001\n- Evidence available: medication requests, medication statements, allergies, conditions, and observations.\n\nClinical Snapshot\nBlack Box Warnings\n- (none)\nActive Medications\n- Ibuprofen 400 MG Oral Tablet\nDuplicate Therapy Findings\n- (none)\nMedication Interaction Findings\n- (none)\nMedication-Food Cautions\n- (none)\nPopulation Contraindication Cautions\n- (none)\nDriving / Machinery Cautions\n- (none)\nDrug-Condition Warnings\n- (none)\nMedication + Lab Threshold Warnings\n  [core / evidence-based]\n- Warning for Ibuprofen 400 MG Oral Tablet because Glomerular filtration rate/1.73 sq M.predicted [Volume Rate/Area] in Serum or Plasma by Creatinine-based formula (MDRD) is 24 mL/min/1.73m2.\n  eGFR below 30 suggests high renal risk with NSAID therapy. Reassess analgesic choice and renal plan.\nQT / Arrhythmia Cautions\n- (none)\nAnticholinergic Burden\n- (none)\nMental Health Medication Warnings\n- (none)\nFamily History + Medication Warnings\n- (none)\nAllergy Cross-Check Findings\n- (none)\nAdherence / Reconciliation Signals\n- MedicationRequest records exist but no MedicationStatement records were found. Consider adherence and reconciliation follow-up.\n- Active prescription is older than 180 days. Confirm current use, refill status, and regimen relevance.\n\nRecommended Actions\n- [high | labs | SLA<=24h] eGFR below 30 suggests high renal risk with NSAID therapy. Reassess analgesic choice and renal plan.\n- [routine | monitor | SLA<=72h] Perform medication reconciliation and adherence interview.\n- [routine | monitor | SLA<=72h] Confirm active use of Ibuprofen 400 MG Oral Tablet and renew/discontinue outdated orders.\n\nCounseling Summary\n- Address any black box warnings first before routine counseling steps.\n- Review the medication list for duplicates, medication interactions, medication-food cautions, pregnancy/lactation/age contraindications, driving/heavy-machinery cautions, black box warnings, drug-condition warnings, mental-health warnings, family-history risks, allergy conflicts, or outdated therapy.\n- Confirm how the patient is taking each medicine and whether any doses were missed.\n- Keep the patient-facing explanation plain and specific to the current regimen.\n\nContext-Aware Guidance\nVector Search\n\nReview Notes\n- MedicationRequests: 1\n- MedicationStatements: 0\n- Allergies: 0\n- Conditions: 0\n- FamilyHistory: 0\n- Observations: 1\n\nUSER>\n",
+  "sourceFiles": {
+    "input": "med-safe-lab-001-input.json",
+    "output": "med-safe-lab-001-output.txt"
+  }
+}

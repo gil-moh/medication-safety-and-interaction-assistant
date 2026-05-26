@@ -1,0 +1,74 @@
+{
+  "patientId": "med-safe-blackbox-001",
+  "generatedAt": "2026-05-26T10:03:01",
+  "inputResources": [
+    {
+      "resourceType": "Patient",
+      "id": "med-safe-blackbox-001",
+      "name": [
+        {
+          "use": "official",
+          "family": "Bar",
+          "given": [
+            "Dana"
+          ]
+        }
+      ],
+      "gender": "female",
+      "birthDate": "1998-05-06"
+    },
+    {
+      "resourceType": "MedicationRequest",
+      "id": "medrx-med-safe-blackbox-001-isotretinoin",
+      "subject": {
+        "reference": "Patient/med-safe-blackbox-001"
+      },
+      "status": "active",
+      "intent": "order",
+      "medicationCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+            "code": "76390",
+            "display": "Isotretinoin 20 MG Oral Capsule"
+          }
+        ],
+        "text": "Isotretinoin 20 MG Oral Capsule"
+      },
+      "authoredOn": "2026-05-24"
+    },
+    {
+      "resourceType": "Condition",
+      "id": "cond-med-safe-blackbox-001-pregnancy",
+      "subject": {
+        "reference": "Patient/med-safe-blackbox-001"
+      },
+      "code": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "77386006",
+            "display": "Pregnant"
+          }
+        ],
+        "text": "Pregnant"
+      },
+      "clinicalStatus": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+            "code": "active",
+            "display": "Active"
+          }
+        ],
+        "text": "Active"
+      },
+      "recordedDate": "2026-05-20"
+    }
+  ],
+  "assistantOutput": "\ufeff\nNode: c50f412ed9c1, Instance: IRIS\n\nUSER>\n\nUSER>\n\nUSER>\n\nUSER>\n\nUSER>\n=== SNAPSHOT JSON ===\n\nUSER>\n{\"patientId\":\"med-safe-blackbox-001\",\"generatedAt\":\"2026-05-26 07:01:59\",\"resourceCounts\":{\"medicationRequests\":1,\"medicationStatements\":0,\"allergies\":0,\"conditions\":1,\"familyHistory\":0,\"observations\":0},\"activeMedicationList\":[{\"name\":\"Isotretinoin 20 MG Oral Capsule\",\"normalizedKey\":\"isotretinoin\",\"rxnormCode\":\"76390\",\"resourceId\":\"medrx-med-safe-blackbox-001-isotretinoin\",\"status\":\"active\",\"source\":\"MedicationRequest\",\"authoredOn\":\"2026-05-24\",\"effectiveDateTime\":\"\"}],\"duplicateTherapyFindings\":[],\"medicationInteractionFindings\":[],\"medicationFoodInteractionFindings\":[],\"medicationPopulationContraindicationFindings\":[],\"medicationActivityCautionFindings\":[],\"medicationBlackBoxWarningFindings\":[{\"risk\":\"black-box-warning\",\"mode\":\"strict\",\"severity\":\"critical\",\"medication\":\"Isotretinoin 20 MG Oral Capsule\",\"medicationResourceId\":\"medrx-med-safe-blackbox-001-isotretinoin\",\"population\":\"pregnancy\",\"warningType\":\"teratogenicity\",\"message\":\"Isotretinoin (Accutane) has a boxed warning for severe fetal harm and is contraindicated in pregnancy.\",\"action\":\"Urgent stop/review with specialist and pregnancy risk protocol.\",\"patientFactors\":{\"ageYears\":28,\"sex\":\"female\",\"pregnant\":1,\"lactating\":0},\"source\":{\"type\":\"knowledge-base\",\"table\":\"local-medication-black-box-rules-v1\",\"ruleId\":\"bbw-isotretinoin-pregnancy\",\"reference\":\"local-curated-rule\"}}],\"medicationConditionWarningFindings\":[],\"medicationLabThresholdWarningFindings\":[],\"medicationQTWarningFindings\":[],\"medicationAnticholinergicBurdenFindings\":[],\"medicationMentalHealthWarningFindings\":[],\"medicationFamilyHistoryWarningFindings\":[],\"allergyCrossCheckFindings\":[],\"adherenceSignals\":[{\"risk\":\"possible-adherence-gap\",\"message\":\"MedicationRequest records exist but no MedicationStatement records were found. Consider adherence and reconciliation follow-up.\"}],\"recommendedActions\":[{\"actionType\":\"stop\",\"priority\":\"urgent\",\"slaHours\":4,\"action\":\"Isotretinoin 20 MG Oral Capsule: Urgent stop/review with specialist and pregnancy risk protocol.\",\"sourceRisk\":\"black-box-warning\"},{\"actionType\":\"consult\",\"priority\":\"urgent\",\"slaHours\":12,\"action\":\"Urgent specialist consult for Isotretinoin 20 MG Oral Capsule black-box risk and mitigation plan.\",\"sourceRisk\":\"black-box-warning\"},{\"actionType\":\"monitor\",\"priority\":\"routine\",\"slaHours\":72,\"action\":\"Perform medication reconciliation and adherence interview.\",\"sourceRisk\":\"possible-adherence-gap\"}],\"vectorSearch\":{\"enabled\":0,\"topK\":3,\"query\":\"medication safety and interaction counseling\",\"status\":\"not-configured\",\"hint\":\"Connect this method to IRIS Vector Search to retrieve drug guidance or patient education snippets.\"},\"raw\":{\"medicationRequests\":{\"resourceType\":\"Bundle\",\"id\":\"ca0cf6f0-58d0-11f1-975a-ca5c53d8c169\",\"type\":\"searchset\",\"timestamp\":\"2026-05-26T07:01:59Z\",\"total\":1,\"link\":[{\"relation\":\"self\",\"url\":\"http://host.docker.internal:52773/fhir/r4/MedicationRequest?_count=50&patient=med-safe-blackbox-001\"}],\"entry\":[{\"fullUrl\":\"http://host.docker.internal:52773/fhir/r4/MedicationRequest/medrx-med-safe-blackbox-001-isotretinoin\",\"resource\":{\"resourceType\":\"MedicationRequest\",\"id\":\"medrx-med-safe-blackbox-001-isotretinoin\",\"subject\":{\"reference\":\"Patient/med-safe-blackbox-001\"},\"status\":\"active\",\"intent\":\"order\",\"medicationCodeableConcept\":{\"coding\":[{\"system\":\"http://www.nlm.nih.gov/research/umls/rxnorm\",\"code\":\"76390\",\"display\":\"Isotretinoin 20 MG Oral Capsule\"}],\"text\":\"Isotretinoin 20 MG Oral Capsule\"},\"authoredOn\":\"2026-05-24\",\"meta\":{\"lastUpdated\":\"2026-05-26T07:00:05Z\",\"versionId\":\"7\"}},\"search\":{\"mode\":\"match\"}}]},\"medicationStatements\":{\"resourceType\":\"Bundle\",\"id\":\"ca2205c3-58d0-11f1-975a-ca5c53d8c169\",\"type\":\"searchset\",\"timestamp\":\"2026-05-26T07:01:59Z\",\"total\":0,\"link\":[{\"relation\":\"self\",\"url\":\"http://host.docker.internal:52773/fhir/r4/MedicationStatement?_count=50&patient=med-safe-blackbox-001\"}]},\"allergies\":{\"resourceType\":\"Bundle\",\"id\":\"ca3975a1-58d0-11f1-975a-ca5c53d8c169\",\"type\":\"searchset\",\"timestamp\":\"2026-05-26T07:01:59Z\",\"total\":0,\"link\":[{\"relation\":\"self\",\"url\":\"http://host.docker.internal:52773/fhir/r4/AllergyIntolerance?_count=50&patient=med-safe-blackbox-001\"}]},\"conditions\":{\"resourceType\":\"Bundle\",\"id\":\"ca4beedf-58d0-11f1-975a-ca5c53d8c169\",\"type\":\"searchset\",\"timestamp\":\"2026-05-26T07:01:59Z\",\"total\":1,\"link\":[{\"relation\":\"self\",\"url\":\"http://host.docker.internal:52773/fhir/r4/Condition?_count=50&patient=med-safe-blackbox-001\"}],\"entry\":[{\"fullUrl\":\"http://host.docker.internal:52773/fhir/r4/Condition/cond-med-safe-blackbox-001-pregnancy\",\"resource\":{\"resourceType\":\"Condition\",\"id\":\"cond-med-safe-blackbox-001-pregnancy\",\"subject\":{\"reference\":\"Patient/med-safe-blackbox-001\"},\"code\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"77386006\",\"display\":\"Pregnant\"}],\"text\":\"Pregnant\"},\"clinicalStatus\":{\"coding\":[{\"system\":\"http://terminology.hl7.org/CodeSystem/condition-clinical\",\"code\":\"active\",\"display\":\"Active\"}],\"text\":\"Active\"},\"recordedDate\":\"2026-05-20\",\"meta\":{\"lastUpdated\":\"2026-05-26T07:00:05Z\",\"versionId\":\"7\"}},\"search\":{\"mode\":\"match\"}}]},\"familyHistory\":{\"resourceType\":\"Bundle\",\"id\":\"ca630529-58d0-11f1-975a-ca5c53d8c169\",\"type\":\"searchset\",\"timestamp\":\"2026-05-26T07:01:59Z\",\"total\":0,\"link\":[{\"relation\":\"self\",\"url\":\"http://host.docker.internal:52773/fhir/r4/FamilyMemberHistory?_count=50&patient=med-safe-blackbox-001\"}]},\"observations\":{\"resourceType\":\"Bundle\",\"id\":\"ca767d0c-58d0-11f1-975a-ca5c53d8c169\",\"type\":\"searchset\",\"timestamp\":\"2026-05-26T07:01:59Z\",\"total\":0,\"link\":[{\"relation\":\"self\",\"url\":\"http://host.docker.internal:52773/fhir/r4/Observation?_count=50&_sort=-date&patient=med-safe-blackbox-001\"}]},\"patient\":{\"resourceType\":\"Patient\",\"id\":\"med-safe-blackbox-001\",\"name\":[{\"use\":\"official\",\"family\":\"Bar\",\"given\":[\"Dana\"]}],\"gender\":\"female\",\"birthDate\":\"1998-05-06\",\"meta\":{\"lastUpdated\":\"2026-05-26T07:00:05Z\",\"versionId\":\"7\"}}}}\n\nUSER>\n=== NARRATIVE ===\n\nUSER>\n\nExample - Medication Safety and Interaction Assistant\n\nPatient Overview\n- Patient: med-safe-blackbox-001\n- Evidence available: medication requests, medication statements, allergies, conditions, and observations.\n\nClinical Snapshot\nBlack Box Warnings\n- URGENT: Isotretinoin (Accutane) has a boxed warning for severe fetal harm and is contraindicated in pregnancy.\nActive Medications\n- Isotretinoin 20 MG Oral Capsule\nDuplicate Therapy Findings\n- (none)\nMedication Interaction Findings\n- (none)\nMedication-Food Cautions\n- (none)\nPopulation Contraindication Cautions\n- (none)\nDriving / Machinery Cautions\n- (none)\nDrug-Condition Warnings\n- (none)\nMedication + Lab Threshold Warnings\n- (none)\nQT / Arrhythmia Cautions\n- (none)\nAnticholinergic Burden\n- (none)\nMental Health Medication Warnings\n- (none)\nFamily History + Medication Warnings\n- (none)\nAllergy Cross-Check Findings\n- (none)\nAdherence / Reconciliation Signals\n- MedicationRequest records exist but no MedicationStatement records were found. Consider adherence and reconciliation follow-up.\n\nRecommended Actions\n- [urgent | stop | SLA<=4h] Isotretinoin 20 MG Oral Capsule: Urgent stop/review with specialist and pregnancy risk protocol.\n- [urgent | consult | SLA<=12h] Urgent specialist consult for Isotretinoin 20 MG Oral Capsule black-box risk and mitigation plan.\n- [routine | monitor | SLA<=72h] Perform medication reconciliation and adherence interview.\n\nCounseling Summary\n- Address any black box warnings first before routine counseling steps.\n- Review the medication list for duplicates, medication interactions, medication-food cautions, pregnancy/lactation/age contraindications, driving/heavy-machinery cautions, black box warnings, drug-condition warnings, mental-health warnings, family-history risks, allergy conflicts, or outdated therapy.\n- Confirm how the patient is taking each medicine and whether any doses were missed.\n- Keep the patient-facing explanation plain and specific to the current regimen.\n\nContext-Aware Guidance\nVector Search\n\nReview Notes\n- MedicationRequests: 1\n- MedicationStatements: 0\n- Allergies: 0\n- Conditions: 1\n- FamilyHistory: 0\n- Observations: 0\n\nUSER>\n",
+  "sourceFiles": {
+    "input": "med-safe-blackbox-001-input.json",
+    "output": "med-safe-blackbox-001-output.txt"
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "patientId": "med-safe-mental-001",
+  "generatedAt": "2026-05-26T10:03:01",
+  "inputResources": [
+    {
+      "resourceType": "Patient",
+      "id": "med-safe-mental-001",
+      "name": [
+        {
+          "use": "official",
+          "family": "Gal",
+          "given": [
+            "Neta"
+          ]
+        }
+      ],
+      "gender": "female",
+      "birthDate": "1992-02-18"
+    },
+    {
+      "resourceType": "MedicationRequest",
+      "id": "medrx-med-safe-mental-001-prednisone",
+      "subject": {
+        "reference": "Patient/med-safe-mental-001"
+      },
+      "status": "active",
+      "intent": "order",
+      "medicationCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+            "code": "8640",
+            "display": "Prednisone 20 MG Oral Tablet"
+          }
+        ],
+        "text": "Prednisone 20 MG Oral Tablet"
+      },
+      "authoredOn": "2026-05-24"
+    },
+    {
+      "resourceType": "Condition",
+      "id": "cond-med-safe-mental-001-bipolar",
+      "subject": {
+        "reference": "Patient/med-safe-mental-001"
+      },
+      "code": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "13746004",
+            "display": "Bipolar disorder"
+          }
+        ],
+        "text": "Bipolar disorder"
+      },
+      "clinicalStatus": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+            "code": "active",
+            "display": "Active"
+          }
+        ],
+        "text": "Active"
+      },
+      "recordedDate": "2021-03-14"
+    }
+  ],
+  "assistantOutput": "\ufeff\nNode: c50f412ed9c1, Instance: IRIS\n\nUSER>\n\nUSER>\n\nUSER>\n\nUSER>\n\nUSER>\n=== SNAPSHOT JSON ===\n\nUSER>\n{\"patientId\":\"med-safe-mental-001\",\"generatedAt\":\"2026-05-26 07:02:40\",\"resourceCounts\":{\"medicationRequests\":1,\"medicationStatements\":0,\"allergies\":0,\"conditions\":1,\"familyHistory\":0,\"observations\":0},\"activeMedicationList\":[{\"name\":\"Prednisone 20 MG Oral Tablet\",\"normalizedKey\":\"prednisone\",\"rxnormCode\":\"8640\",\"resourceId\":\"medrx-med-safe-mental-001-prednisone\",\"status\":\"active\",\"source\":\"MedicationRequest\",\"authoredOn\":\"2026-05-24\",\"effectiveDateTime\":\"\"}],\"duplicateTherapyFindings\":[],\"medicationInteractionFindings\":[],\"medicationFoodInteractionFindings\":[],\"medicationPopulationContraindicationFindings\":[],\"medicationActivityCautionFindings\":[],\"medicationBlackBoxWarningFindings\":[],\"medicationConditionWarningFindings\":[],\"medicationLabThresholdWarningFindings\":[],\"medicationQTWarningFindings\":[],\"medicationAnticholinergicBurdenFindings\":[],\"medicationMentalHealthWarningFindings\":[{\"risk\":\"possible-mental-health-medication-warning\",\"mode\":\"strict\",\"severity\":\"high\",\"medication\":\"Prednisone 20 MG Oral Tablet\",\"medicationResourceId\":\"medrx-med-safe-mental-001-prednisone\",\"condition\":\"Bipolar disorder\",\"conditionCode\":\"13746004\",\"conditionResourceId\":\"cond-med-safe-mental-001-bipolar\",\"reasoning\":\"Warning for Prednisone 20 MG Oral Tablet because patient has a diagnosed condition: Bipolar disorder.\",\"message\":\"Systemic corticosteroids can destabilize mood in bipolar spectrum conditions. Plan close psychiatric monitoring.\",\"source\":{\"type\":\"knowledge-base\",\"table\":\"local-mental-health-medication-rules-v1\",\"ruleId\":\"mh-steroid-bipolar\",\"reference\":\"local-curated-rule\"}}],\"medicationFamilyHistoryWarningFindings\":[],\"allergyCrossCheckFindings\":[],\"adherenceSignals\":[{\"risk\":\"possible-adherence-gap\",\"message\":\"MedicationRequest records exist but no MedicationStatement records were found. Consider adherence and reconciliation follow-up.\"}],\"recommendedActions\":[{\"actionType\":\"monitor\",\"priority\":\"routine\",\"slaHours\":72,\"action\":\"Systemic corticosteroids can destabilize mood in bipolar spectrum conditions. Plan close psychiatric monitoring.\",\"sourceRisk\":\"possible-mental-health-medication-warning\"},{\"actionType\":\"monitor\",\"priority\":\"routine\",\"slaHours\":72,\"action\":\"Perform medication reconciliation and adherence interview.\",\"sourceRisk\":\"possible-adherence-gap\"}],\"vectorSearch\":{\"enabled\":0,\"topK\":3,\"query\":\"medication safety and interaction counseling\",\"status\":\"not-configured\",\"hint\":\"Connect this method to IRIS Vector Search to retrieve drug guidance or patient education snippets.\"},\"raw\":{\"medicationRequests\":{\"resourceType\":\"Bundle\",\"id\":\"e25295b0-58d0-11f1-975a-ca5c53d8c169\",\"type\":\"searchset\",\"timestamp\":\"2026-05-26T07:02:39Z\",\"total\":1,\"link\":[{\"relation\":\"self\",\"url\":\"http://host.docker.internal:52773/fhir/r4/MedicationRequest?_count=50&patient=med-safe-mental-001\"}],\"entry\":[{\"fullUrl\":\"http://host.docker.internal:52773/fhir/r4/MedicationRequest/medrx-med-safe-mental-001-prednisone\",\"resource\":{\"resourceType\":\"MedicationRequest\",\"id\":\"medrx-med-safe-mental-001-prednisone\",\"subject\":{\"reference\":\"Patient/med-safe-mental-001\"},\"status\":\"active\",\"intent\":\"order\",\"medicationCodeableConcept\":{\"coding\":[{\"system\":\"http://www.nlm.nih.gov/research/umls/rxnorm\",\"code\":\"8640\",\"display\":\"Prednisone 20 MG Oral Tablet\"}],\"text\":\"Prednisone 20 MG Oral Tablet\"},\"authoredOn\":\"2026-05-24\",\"meta\":{\"lastUpdated\":\"2026-05-26T07:00:06Z\",\"versionId\":\"4\"}},\"search\":{\"mode\":\"match\"}}]},\"medicationStatements\":{\"resourceType\":\"Bundle\",\"id\":\"e262689f-58d0-11f1-975a-ca5c53d8c169\",\"type\":\"searchset\",\"timestamp\":\"2026-05-26T07:02:39Z\",\"total\":0,\"link\":[{\"relation\":\"self\",\"url\":\"http://host.docker.internal:52773/fhir/r4/MedicationStatement?_count=50&patient=med-safe-mental-001\"}]},\"allergies\":{\"resourceType\":\"Bundle\",\"id\":\"e26df515-58d0-11f1-975a-ca5c53d8c169\",\"type\":\"searchset\",\"timestamp\":\"2026-05-26T07:02:40Z\",\"total\":0,\"link\":[{\"relation\":\"self\",\"url\":\"http://host.docker.internal:52773/fhir/r4/AllergyIntolerance?_count=50&patient=med-safe-mental-001\"}]},\"conditions\":{\"resourceType\":\"Bundle\",\"id\":\"e27f52ff-58d0-11f1-975a-ca5c53d8c169\",\"type\":\"searchset\",\"timestamp\":\"2026-05-26T07:02:40Z\",\"total\":1,\"link\":[{\"relation\":\"self\",\"url\":\"http://host.docker.internal:52773/fhir/r4/Condition?_count=50&patient=med-safe-mental-001\"}],\"entry\":[{\"fullUrl\":\"http://host.docker.internal:52773/fhir/r4/Condition/cond-med-safe-mental-001-bipolar\",\"resource\":{\"resourceType\":\"Condition\",\"id\":\"cond-med-safe-mental-001-bipolar\",\"subject\":{\"reference\":\"Patient/med-safe-mental-001\"},\"code\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"13746004\",\"display\":\"Bipolar disorder\"}],\"text\":\"Bipolar disorder\"},\"clinicalStatus\":{\"coding\":[{\"system\":\"http://terminology.hl7.org/CodeSystem/condition-clinical\",\"code\":\"active\",\"display\":\"Active\"}],\"text\":\"Active\"},\"recordedDate\":\"2021-03-14\",\"meta\":{\"lastUpdated\":\"2026-05-26T07:00:06Z\",\"versionId\":\"4\"}},\"search\":{\"mode\":\"match\"}}]},\"familyHistory\":{\"resourceType\":\"Bundle\",\"id\":\"e2931ca8-58d0-11f1-975a-ca5c53d8c169\",\"type\":\"searchset\",\"timestamp\":\"2026-05-26T07:02:40Z\",\"total\":0,\"link\":[{\"relation\":\"self\",\"url\":\"http://host.docker.internal:52773/fhir/r4/FamilyMemberHistory?_count=50&patient=med-safe-mental-001\"}]},\"observations\":{\"resourceType\":\"Bundle\",\"id\":\"e2aae4f8-58d0-11f1-975a-ca5c53d8c169\",\"type\":\"searchset\",\"timestamp\":\"2026-05-26T07:02:40Z\",\"total\":0,\"link\":[{\"relation\":\"self\",\"url\":\"http://host.docker.internal:52773/fhir/r4/Observation?_count=50&_sort=-date&patient=med-safe-mental-001\"}]},\"patient\":{\"resourceType\":\"Patient\",\"id\":\"med-safe-mental-001\",\"name\":[{\"use\":\"official\",\"family\":\"Gal\",\"given\":[\"Neta\"]}],\"gender\":\"female\",\"birthDate\":\"1992-02-18\",\"meta\":{\"lastUpdated\":\"2026-05-26T07:00:06Z\",\"versionId\":\"4\"}}}}\n\nUSER>\n=== NARRATIVE ===\n\nUSER>\n\nExample - Medication Safety and Interaction Assistant\n\nPatient Overview\n- Patient: med-safe-mental-001\n- Evidence available: medication requests, medication statements, allergies, conditions, and observations.\n\nClinical Snapshot\nBlack Box Warnings\n- (none)\nActive Medications\n- Prednisone 20 MG Oral Tablet\nDuplicate Therapy Findings\n- (none)\nMedication Interaction Findings\n- (none)\nMedication-Food Cautions\n- (none)\nPopulation Contraindication Cautions\n- (none)\nDriving / Machinery Cautions\n- (none)\nDrug-Condition Warnings\n- (none)\nMedication + Lab Threshold Warnings\n- (none)\nQT / Arrhythmia Cautions\n- (none)\nAnticholinergic Burden\n- (none)\nMental Health Medication Warnings\n  [core / evidence-based]\n- Warning for Prednisone 20 MG Oral Tablet because patient has a diagnosed condition: Bipolar disorder.\n  Systemic corticosteroids can destabilize mood in bipolar spectrum conditions. Plan close psychiatric monitoring.\nFamily History + Medication Warnings\n- (none)\nAllergy Cross-Check Findings\n- (none)\nAdherence / Reconciliation Signals\n- MedicationRequest records exist but no MedicationStatement records were found. Consider adherence and reconciliation follow-up.\n\nRecommended Actions\n- [routine | monitor | SLA<=72h] Systemic corticosteroids can destabilize mood in bipolar spectrum conditions. Plan close psychiatric monitoring.\n- [routine | monitor | SLA<=72h] Perform medication reconciliation and adherence interview.\n\nCounseling Summary\n- Address any black box warnings first before routine counseling steps.\n- Review the medication list for duplicates, medication interactions, medication-food cautions, pregnancy/lactation/age contraindications, driving/heavy-machinery cautions, black box warnings, drug-condition warnings, mental-health warnings, family-history risks, allergy conflicts, or outdated therapy.\n- Confirm how the patient is taking each medicine and whether any doses were missed.\n- Keep the patient-facing explanation plain and specific to the current regimen.\n\nContext-Aware Guidance\nVector Search\n\nReview Notes\n- MedicationRequests: 1\n- MedicationStatements: 0\n- Allergies: 0\n- Conditions: 1\n- FamilyHistory: 0\n- Observations: 0\n\nUSER>\n",
+  "sourceFiles": {
+    "input": "med-safe-mental-001-input.json",
+    "output": "med-safe-mental-001-output.txt"
+  }
+}

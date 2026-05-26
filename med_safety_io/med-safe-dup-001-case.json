@@ -1,0 +1,119 @@
+{
+  "patientId": "med-safe-dup-001",
+  "generatedAt": "2026-05-26T10:03:01",
+  "inputResources": [
+    {
+      "resourceType": "Patient",
+      "id": "med-safe-dup-001",
+      "name": [
+        {
+          "use": "official",
+          "family": "Shalev",
+          "given": [
+            "Eitan"
+          ]
+        }
+      ],
+      "gender": "male",
+      "birthDate": "1972-03-19"
+    },
+    {
+      "resourceType": "MedicationRequest",
+      "id": "medrx-med-safe-dup-001-metformin-500",
+      "subject": {
+        "reference": "Patient/med-safe-dup-001"
+      },
+      "status": "active",
+      "intent": "order",
+      "medicationCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+            "code": "860975",
+            "display": "Metformin 500 MG Oral Tablet"
+          }
+        ],
+        "text": "Metformin 500 MG Oral Tablet"
+      },
+      "authoredOn": "2026-05-15"
+    },
+    {
+      "resourceType": "MedicationRequest",
+      "id": "medrx-med-safe-dup-001-metformin-1000",
+      "subject": {
+        "reference": "Patient/med-safe-dup-001"
+      },
+      "status": "active",
+      "intent": "order",
+      "medicationCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+            "code": "861007",
+            "display": "Metformin 1000 MG Oral Tablet"
+          }
+        ],
+        "text": "Metformin 1000 MG Oral Tablet"
+      },
+      "authoredOn": "2026-05-18"
+    },
+    {
+      "resourceType": "Condition",
+      "id": "cond-med-safe-dup-001-dm2",
+      "subject": {
+        "reference": "Patient/med-safe-dup-001"
+      },
+      "code": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "44054006",
+            "display": "Type 2 diabetes mellitus"
+          }
+        ],
+        "text": "Type 2 diabetes mellitus"
+      },
+      "clinicalStatus": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+            "code": "active",
+            "display": "Active"
+          }
+        ],
+        "text": "Active"
+      },
+      "recordedDate": "2019-01-08"
+    },
+    {
+      "resourceType": "Observation",
+      "id": "obs-med-safe-dup-001-a1c",
+      "status": "final",
+      "code": {
+        "coding": [
+          {
+            "system": "http://loinc.org",
+            "code": "4548-4",
+            "display": "Hemoglobin A1c/Hemoglobin.total in Blood"
+          }
+        ],
+        "text": "Hemoglobin A1c/Hemoglobin.total in Blood"
+      },
+      "subject": {
+        "reference": "Patient/med-safe-dup-001"
+      },
+      "effectiveDateTime": "2026-05-20",
+      "valueQuantity": {
+        "value": 8.7,
+        "unit": "%",
+        "system": "http://unitsofmeasure.org",
+        "code": "%"
+      }
+    }
+  ],
+  "assistantOutput": "\ufeff\nNode: c50f412ed9c1, Instance: IRIS\n\nUSER>\n\nUSER>\n\nUSER>\n\nUSER>\n\nUSER>\n=== SNAPSHOT JSON ===\n\nUSER>\n{\"patientId\":\"med-safe-dup-001\",\"generatedAt\":\"2026-05-26 07:02:22\",\"resourceCounts\":{\"medicationRequests\":2,\"medicationStatements\":0,\"allergies\":0,\"conditions\":1,\"familyHistory\":0,\"observations\":1},\"activeMedicationList\":[{\"name\":\"Metformin 500 MG Oral Tablet\",\"normalizedKey\":\"metformin\",\"rxnormCode\":\"860975\",\"resourceId\":\"medrx-med-safe-dup-001-metformin-500\",\"status\":\"active\",\"source\":\"MedicationRequest\",\"authoredOn\":\"2026-05-15\",\"effectiveDateTime\":\"\"},{\"name\":\"Metformin 1000 MG Oral Tablet\",\"normalizedKey\":\"metformin\",\"rxnormCode\":\"861007\",\"resourceId\":\"medrx-med-safe-dup-001-metformin-1000\",\"status\":\"active\",\"source\":\"MedicationRequest\",\"authoredOn\":\"2026-05-18\",\"effectiveDateTime\":\"\"}],\"duplicateTherapyFindings\":[{\"risk\":\"possible-duplicate-therapy\",\"key\":\"metformin\",\"count\":2,\"evidence\":\"Metformin 500 MG Oral Tablet; Metformin 1000 MG Oral Tablet\",\"resourceIds\":[\"medrx-med-safe-dup-001-metformin-500\",\"medrx-med-safe-dup-001-metformin-1000\"],\"source\":{\"type\":\"heuristic\",\"method\":\"normalized-medication-name-match\",\"resources\":\"MedicationRequest/MedicationStatement\"},\"message\":\"Potential duplicate therapy detected. Review overlapping active medications.\"}],\"medicationInteractionFindings\":[],\"medicationFoodInteractionFindings\":[],\"medicationPopulationContraindicationFindings\":[],\"medicationActivityCautionFindings\":[],\"medicationBlackBoxWarningFindings\":[],\"medicationConditionWarningFindings\":[],\"medicationLabThresholdWarningFindings\":[],\"medicationQTWarningFindings\":[],\"medicationAnticholinergicBurdenFindings\":[],\"medicationMentalHealthWarningFindings\":[],\"medicationFamilyHistoryWarningFindings\":[],\"allergyCrossCheckFindings\":[],\"adherenceSignals\":[{\"risk\":\"possible-adherence-gap\",\"message\":\"MedicationRequest records exist but no MedicationStatement records were found. Consider adherence and reconciliation follow-up.\"},{\"risk\":\"glycemic-control-concern\",\"value\":8.7,\"message\":\"Recent A1c is elevated. Review adherence, education needs, and therapy adjustments.\"}],\"recommendedActions\":[{\"actionType\":\"monitor\",\"priority\":\"routine\",\"slaHours\":72,\"action\":\"Perform medication reconciliation and adherence interview.\",\"sourceRisk\":\"possible-adherence-gap\"}],\"vectorSearch\":{\"enabled\":0,\"topK\":3,\"query\":\"medication safety and interaction counseling\",\"status\":\"not-configured\",\"hint\":\"Connect this method to IRIS Vector Search to retrieve drug guidance or patient education snippets.\"},\"raw\":{\"medicationRequests\":{\"resourceType\":\"Bundle\",\"id\":\"d6daa3e1-58d0-11f1-975a-ca5c53d8c169\",\"type\":\"searchset\",\"timestamp\":\"2026-05-26T07:02:20Z\",\"total\":2,\"link\":[{\"relation\":\"self\",\"url\":\"http://host.docker.internal:52773/fhir/r4/MedicationRequest?_count=50&patient=med-safe-dup-001\"}],\"entry\":[{\"fullUrl\":\"http://host.docker.internal:52773/fhir/r4/MedicationRequest/medrx-med-safe-dup-001-metformin-500\",\"resource\":{\"resourceType\":\"MedicationRequest\",\"id\":\"medrx-med-safe-dup-001-metformin-500\",\"subject\":{\"reference\":\"Patient/med-safe-dup-001\"},\"status\":\"active\",\"intent\":\"order\",\"medicationCodeableConcept\":{\"coding\":[{\"system\":\"http://www.nlm.nih.gov/research/umls/rxnorm\",\"code\":\"860975\",\"display\":\"Metformin 500 MG Oral Tablet\"}],\"text\":\"Metformin 500 MG Oral Tablet\"},\"authoredOn\":\"2026-05-15\",\"meta\":{\"lastUpdated\":\"2026-05-26T07:00:04Z\",\"versionId\":\"12\"}},\"search\":{\"mode\":\"match\"}},{\"fullUrl\":\"http://host.docker.internal:52773/fhir/r4/MedicationRequest/medrx-med-safe-dup-001-metformin-1000\",\"resource\":{\"resourceType\":\"MedicationRequest\",\"id\":\"medrx-med-safe-dup-001-metformin-1000\",\"subject\":{\"reference\":\"Patient/med-safe-dup-001\"},\"status\":\"active\",\"intent\":\"order\",\"medicationCodeableConcept\":{\"coding\":[{\"system\":\"http://www.nlm.nih.gov/research/umls/rxnorm\",\"code\":\"861007\",\"display\":\"Metformin 1000 MG Oral Tablet\"}],\"text\":\"Metformin 1000 MG Oral Tablet\"},\"authoredOn\":\"2026-05-18\",\"meta\":{\"lastUpdated\":\"2026-05-26T07:00:04Z\",\"versionId\":\"12\"}},\"search\":{\"mode\":\"match\"}}]},\"medicationStatements\":{\"resourceType\":\"Bundle\",\"id\":\"d7284178-58d0-11f1-975a-ca5c53d8c169\",\"type\":\"searchset\",\"timestamp\":\"2026-05-26T07:02:21Z\",\"total\":0,\"link\":[{\"relation\":\"self\",\"url\":\"http://host.docker.internal:52773/fhir/r4/MedicationStatement?_count=50&patient=med-safe-dup-001\"}]},\"allergies\":{\"resourceType\":\"Bundle\",\"id\":\"d773e476-58d0-11f1-975a-ca5c53d8c169\",\"type\":\"searchset\",\"timestamp\":\"2026-05-26T07:02:21Z\",\"total\":0,\"link\":[{\"relation\":\"self\",\"url\":\"http://host.docker.internal:52773/fhir/r4/AllergyIntolerance?_count=50&patient=med-safe-dup-001\"}]},\"conditions\":{\"resourceType\":\"Bundle\",\"id\":\"d7a6882d-58d0-11f1-975a-ca5c53d8c169\",\"type\":\"searchset\",\"timestamp\":\"2026-05-26T07:02:21Z\",\"total\":1,\"link\":[{\"relation\":\"self\",\"url\":\"http://host.docker.internal:52773/fhir/r4/Condition?_count=50&patient=med-safe-dup-001\"}],\"entry\":[{\"fullUrl\":\"http://host.docker.internal:52773/fhir/r4/Condition/cond-med-safe-dup-001-dm2\",\"resource\":{\"resourceType\":\"Condition\",\"id\":\"cond-med-safe-dup-001-dm2\",\"subject\":{\"reference\":\"Patient/med-safe-dup-001\"},\"code\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"44054006\",\"display\":\"Type 2 diabetes mellitus\"}],\"text\":\"Type 2 diabetes mellitus\"},\"clinicalStatus\":{\"coding\":[{\"system\":\"http://terminology.hl7.org/CodeSystem/condition-clinical\",\"code\":\"active\",\"display\":\"Active\"}],\"text\":\"Active\"},\"recordedDate\":\"2019-01-08\",\"meta\":{\"lastUpdated\":\"2026-05-26T07:00:04Z\",\"versionId\":\"12\"}},\"search\":{\"mode\":\"match\"}}]},\"familyHistory\":{\"resourceType\":\"Bundle\",\"id\":\"d7c9fa97-58d0-11f1-975a-ca5c53d8c169\",\"type\":\"searchset\",\"timestamp\":\"2026-05-26T07:02:22Z\",\"total\":0,\"link\":[{\"relation\":\"self\",\"url\":\"http://host.docker.internal:52773/fhir/r4/FamilyMemberHistory?_count=50&patient=med-safe-dup-001\"}]},\"observations\":{\"resourceType\":\"Bundle\",\"id\":\"d7e8b348-58d0-11f1-975a-ca5c53d8c169\",\"type\":\"searchset\",\"timestamp\":\"2026-05-26T07:02:22Z\",\"total\":1,\"link\":[{\"relation\":\"self\",\"url\":\"http://host.docker.internal:52773/fhir/r4/Observation?_count=50&_sort=-date&patient=med-safe-dup-001\"}],\"entry\":[{\"fullUrl\":\"http://host.docker.internal:52773/fhir/r4/Observation/obs-med-safe-dup-001-a1c\",\"resource\":{\"resourceType\":\"Observation\",\"id\":\"obs-med-safe-dup-001-a1c\",\"status\":\"final\",\"code\":{\"coding\":[{\"system\":\"http://loinc.org\",\"code\":\"4548-4\",\"display\":\"Hemoglobin A1c/Hemoglobin.total in Blood\"}],\"text\":\"Hemoglobin A1c/Hemoglobin.total in Blood\"},\"subject\":{\"reference\":\"Patient/med-safe-dup-001\"},\"effectiveDateTime\":\"2026-05-20\",\"valueQuantity\":{\"value\":8.7,\"unit\":\"%\",\"system\":\"http://unitsofmeasure.org\",\"code\":\"%\"},\"meta\":{\"lastUpdated\":\"2026-05-26T07:00:04Z\",\"versionId\":\"12\"}},\"search\":{\"mode\":\"match\"}}]},\"patient\":{\"resourceType\":\"Patient\",\"id\":\"med-safe-dup-001\",\"name\":[{\"use\":\"official\",\"family\":\"Shalev\",\"given\":[\"Eitan\"]}],\"gender\":\"male\",\"birthDate\":\"1972-03-19\",\"meta\":{\"lastUpdated\":\"2026-05-26T07:00:04Z\",\"versionId\":\"12\"}}}}\n\nUSER>\n=== NARRATIVE ===\n\nUSER>\n\nExample - Medication Safety and Interaction Assistant\n\nPatient Overview\n- Patient: med-safe-dup-001\n- Evidence available: medication requests, medication statements, allergies, conditions, and observations.\n\nClinical Snapshot\nBlack Box Warnings\n- (none)\nActive Medications\n- Metformin 500 MG Oral Tablet\n- Metformin 1000 MG Oral Tablet\nDuplicate Therapy Findings\n- Potential duplicate therapy detected. Review overlapping active medications.\nMedication Interaction Findings\n- (none)\nMedication-Food Cautions\n- (none)\nPopulation Contraindication Cautions\n- (none)\nDriving / Machinery Cautions\n- (none)\nDrug-Condition Warnings\n- (none)\nMedication + Lab Threshold Warnings\n- (none)\nQT / Arrhythmia Cautions\n- (none)\nAnticholinergic Burden\n- (none)\nMental Health Medication Warnings\n- (none)\nFamily History + Medication Warnings\n- (none)\nAllergy Cross-Check Findings\n- (none)\nAdherence / Reconciliation Signals\n- MedicationRequest records exist but no MedicationStatement records were found. Consider adherence and reconciliation follow-up.\n- Recent A1c is elevated. Review adherence, education needs, and therapy adjustments.\n\nRecommended Actions\n- [routine | monitor | SLA<=72h] Perform medication reconciliation and adherence interview.\n\nCounseling Summary\n- Address any black box warnings first before routine counseling steps.\n- Review the medication list for duplicates, medication interactions, medication-food cautions, pregnancy/lactation/age contraindications, driving/heavy-machinery cautions, black box warnings, drug-condition warnings, mental-health warnings, family-history risks, allergy conflicts, or outdated therapy.\n- Confirm how the patient is taking each medicine and whether any doses were missed.\n- Keep the patient-facing explanation plain and specific to the current regimen.\n\nContext-Aware Guidance\nVector Search\n\nReview Notes\n- MedicationRequests: 2\n- MedicationStatements: 0\n- Allergies: 0\n- Conditions: 1\n- FamilyHistory: 0\n- Observations: 1\n\nUSER>\n",
+  "sourceFiles": {
+    "input": "med-safe-dup-001-input.json",
+    "output": "med-safe-dup-001-output.txt"
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "patientId": "med-safe-anticholinergic-001",
+  "generatedAt": "2026-05-26T10:03:01",
+  "inputResources": [
+    {
+      "resourceType": "Patient",
+      "id": "med-safe-anticholinergic-001",
+      "name": [
+        {
+          "use": "official",
+          "family": "Sharir",
+          "given": [
+            "Erez"
+          ]
+        }
+      ],
+      "gender": "male",
+      "birthDate": "1954-09-17"
+    },
+    {
+      "resourceType": "MedicationRequest",
+      "id": "medrx-med-safe-anticholinergic-001-diphenhydramine",
+      "subject": {
+        "reference": "Patient/med-safe-anticholinergic-001"
+      },
+      "status": "active",
+      "intent": "order",
+      "medicationCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+            "code": "3498",
+            "display": "Diphenhydramine 25 MG Oral Capsule"
+          }
+        ],
+        "text": "Diphenhydramine 25 MG Oral Capsule"
+      },
+      "authoredOn": "2026-05-21"
+    },
+    {
+      "resourceType": "MedicationRequest",
+      "id": "medrx-med-safe-anticholinergic-001-oxybutynin",
+      "subject": {
+        "reference": "Patient/med-safe-anticholinergic-001"
+      },
+      "status": "active",
+      "intent": "order",
+      "medicationCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+            "code": "32675",
+            "display": "Oxybutynin chloride 5 MG Oral Tablet"
+          }
+        ],
+        "text": "Oxybutynin chloride 5 MG Oral Tablet"
+      },
+      "authoredOn": "2026-05-21"
+    },
+    {
+      "resourceType": "MedicationRequest",
+      "id": "medrx-med-safe-anticholinergic-001-amitriptyline",
+      "subject": {
+        "reference": "Patient/med-safe-anticholinergic-001"
+      },
+      "status": "active",
+      "intent": "order",
+      "medicationCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+            "code": "704",
+            "display": "Amitriptyline hydrochloride 25 MG Oral Tablet"
+          }
+        ],
+        "text": "Amitriptyline hydrochloride 25 MG Oral Tablet"
+      },
+      "authoredOn": "2026-05-21"
+    }
+  ],
+  "assistantOutput": "\ufeff\nNode: c50f412ed9c1, Instance: IRIS\n\nUSER>\n\nUSER>\n\nUSER>\n\nUSER>\n\nUSER>\n=== SNAPSHOT JSON ===\n\nUSER>\n{\"patientId\":\"med-safe-anticholinergic-001\",\"generatedAt\":\"2026-05-26 07:01:55\",\"resourceCounts\":{\"medicationRequests\":3,\"medicationStatements\":0,\"allergies\":0,\"conditions\":0,\"familyHistory\":0,\"observations\":0},\"activeMedicationList\":[{\"name\":\"Diphenhydramine 25 MG Oral Capsule\",\"normalizedKey\":\"diphenhydramine\",\"rxnormCode\":\"3498\",\"resourceId\":\"medrx-med-safe-anticholinergic-001-diphenhydramine\",\"status\":\"active\",\"source\":\"MedicationRequest\",\"authoredOn\":\"2026-05-21\",\"effectiveDateTime\":\"\"},{\"name\":\"Oxybutynin chloride 5 MG Oral Tablet\",\"normalizedKey\":\"oxybutynin chloride\",\"rxnormCode\":\"32675\",\"resourceId\":\"medrx-med-safe-anticholinergic-001-oxybutynin\",\"status\":\"active\",\"source\":\"MedicationRequest\",\"authoredOn\":\"2026-05-21\",\"effectiveDateTime\":\"\"},{\"name\":\"Amitriptyline hydrochloride 25 MG Oral Tablet\",\"normalizedKey\":\"amitriptyline hydrochloride\",\"rxnormCode\":\"704\",\"resourceId\":\"medrx-med-safe-anticholinergic-001-amitriptyline\",\"status\":\"active\",\"source\":\"MedicationRequest\",\"authoredOn\":\"2026-05-21\",\"effectiveDateTime\":\"\"}],\"duplicateTherapyFindings\":[],\"medicationInteractionFindings\":[],\"medicationFoodInteractionFindings\":[],\"medicationPopulationContraindicationFindings\":[],\"medicationActivityCautionFindings\":[{\"risk\":\"possible-activity-impairment\",\"mode\":\"conservative\",\"severity\":\"moderate\",\"medication\":\"Diphenhydramine 25 MG Oral Capsule\",\"medicationResourceId\":\"medrx-med-safe-anticholinergic-001-diphenhydramine\",\"activity\":\"driving or operating heavy machinery\",\"criterion\":\"antihistamine sedation risk\",\"requiresActivityCounseling\":1,\"message\":\"Diphenhydramine can reduce alertness. Counsel to avoid driving or hazardous tasks when drowsy.\",\"occupation\":\"\",\"occupationSource\":\"\",\"occupationSafetySensitive\":0,\"source\":{\"type\":\"knowledge-base\",\"table\":\"local-medication-activity-rules-v1\",\"ruleId\":\"act-diphenhydramine-driving\",\"reference\":\"local-curated-rule\"}}],\"medicationBlackBoxWarningFindings\":[],\"medicationConditionWarningFindings\":[],\"medicationLabThresholdWarningFindings\":[],\"medicationQTWarningFindings\":[],\"medicationAnticholinergicBurdenFindings\":[{\"risk\":\"possible-anticholinergic-burden\",\"mode\":\"strict\",\"severity\":\"high\",\"totalScore\":9,\"contributorCount\":3,\"contributors\":[{\"medication\":\"Diphenhydramine 25 MG Oral Capsule\",\"medicationResourceId\":\"medrx-med-safe-anticholinergic-001-diphenhydramine\",\"score\":3},{\"medication\":\"Oxybutynin chloride 5 MG Oral Tablet\",\"medicationResourceId\":\"medrx-med-safe-anticholinergic-001-oxybutynin\",\"score\":3},{\"medication\":\"Amitriptyline hydrochloride 25 MG Oral Tablet\",\"medicationResourceId\":\"medrx-med-safe-anticholinergic-001-amitriptyline\",\"score\":3}],\"reasoning\":\"Warning because summed anticholinergic burden score is 9.\",\"message\":\"Combined anticholinergic burden score is 9. Elevated burden may increase confusion, constipation, urinary retention, and fall risk.\",\"source\":{\"type\":\"knowledge-base\",\"table\":\"local-anticholinergic-burden-rules-v1\",\"reference\":\"local-curated-rule\"}}],\"medicationMentalHealthWarningFindings\":[],\"medicationFamilyHistoryWarningFindings\":[],\"allergyCrossCheckFindings\":[],\"adherenceSignals\":[{\"risk\":\"possible-adherence-gap\",\"message\":\"MedicationRequest records exist but no MedicationStatement records were found. Consider adherence and reconciliation follow-up.\"}],\"recommendedActions\":[{\"actionType\":\"monitor\",\"priority\":\"routine\",\"slaHours\":168,\"action\":\"Combined anticholinergic burden score is 9. Elevated burden may increase confusion, constipation, urinary retention, and fall risk.\",\"sourceRisk\":\"possible-anticholinergic-burden\"},{\"actionType\":\"monitor\",\"priority\":\"routine\",\"slaHours\":72,\"action\":\"Diphenhydramine can reduce alertness. Counsel to avoid driving or hazardous tasks when drowsy.\",\"sourceRisk\":\"possible-activity-impairment\"},{\"actionType\":\"monitor\",\"priority\":\"routine\",\"slaHours\":72,\"action\":\"Perform medication reconciliation and adherence interview.\",\"sourceRisk\":\"possible-adherence-gap\"}],\"vectorSearch\":{\"enabled\":0,\"topK\":3,\"query\":\"medication safety and interaction counseling\",\"status\":\"not-configured\",\"hint\":\"Connect this method to IRIS Vector Search to retrieve drug guidance or patient education snippets.\"},\"raw\":{\"medicationRequests\":{\"resourceType\":\"Bundle\",\"id\":\"c71e8762-58d0-11f1-975a-ca5c53d8c169\",\"type\":\"searchset\",\"timestamp\":\"2026-05-26T07:01:54Z\",\"total\":3,\"link\":[{\"relation\":\"self\",\"url\":\"http://host.docker.internal:52773/fhir/r4/MedicationRequest?_count=50&patient=med-safe-anticholinergic-001\"}],\"entry\":[{\"fullUrl\":\"http://host.docker.internal:52773/fhir/r4/MedicationRequest/medrx-med-safe-anticholinergic-001-diphenhydramine\",\"resource\":{\"resourceType\":\"MedicationRequest\",\"id\":\"medrx-med-safe-anticholinergic-001-diphenhydramine\",\"subject\":{\"reference\":\"Patient/med-safe-anticholinergic-001\"},\"status\":\"active\",\"intent\":\"order\",\"medicationCodeableConcept\":{\"coding\":[{\"system\":\"http://www.nlm.nih.gov/research/umls/rxnorm\",\"code\":\"3498\",\"display\":\"Diphenhydramine 25 MG Oral Capsule\"}],\"text\":\"Diphenhydramine 25 MG Oral Capsule\"},\"authoredOn\":\"2026-05-21\",\"meta\":{\"lastUpdated\":\"2026-05-26T07:00:06Z\",\"versionId\":\"2\"}},\"search\":{\"mode\":\"match\"}},{\"fullUrl\":\"http://host.docker.internal:52773/fhir/r4/MedicationRequest/medrx-med-safe-anticholinergic-001-oxybutynin\",\"resource\":{\"resourceType\":\"MedicationRequest\",\"id\":\"medrx-med-safe-anticholinergic-001-oxybutynin\",\"subject\":{\"reference\":\"Patient/med-safe-anticholinergic-001\"},\"status\":\"active\",\"intent\":\"order\",\"medicationCodeableConcept\":{\"coding\":[{\"system\":\"http://www.nlm.nih.gov/research/umls/rxnorm\",\"code\":\"32675\",\"display\":\"Oxybutynin chloride 5 MG Oral Tablet\"}],\"text\":\"Oxybutynin chloride 5 MG Oral Tablet\"},\"authoredOn\":\"2026-05-21\",\"meta\":{\"lastUpdated\":\"2026-05-26T07:00:06Z\",\"versionId\":\"2\"}},\"search\":{\"mode\":\"match\"}},{\"fullUrl\":\"http://host.docker.internal:52773/fhir/r4/MedicationRequest/medrx-med-safe-anticholinergic-001-amitriptyline\",\"resource\":{\"resourceType\":\"MedicationRequest\",\"id\":\"medrx-med-safe-anticholinergic-001-amitriptyline\",\"subject\":{\"reference\":\"Patient/med-safe-anticholinergic-001\"},\"status\":\"active\",\"intent\":\"order\",\"medicationCodeableConcept\":{\"coding\":[{\"system\":\"http://www.nlm.nih.gov/research/umls/rxnorm\",\"code\":\"704\",\"display\":\"Amitriptyline hydrochloride 25 MG Oral Tablet\"}],\"text\":\"Amitriptyline hydrochloride 25 MG Oral Tablet\"},\"authoredOn\":\"2026-05-21\",\"meta\":{\"lastUpdated\":\"2026-05-26T07:00:06Z\",\"versionId\":\"2\"}},\"search\":{\"mode\":\"match\"}}]},\"medicationStatements\":{\"resourceType\":\"Bundle\",\"id\":\"c764742e-58d0-11f1-975a-ca5c53d8c169\",\"type\":\"searchset\",\"timestamp\":\"2026-05-26T07:01:54Z\",\"total\":0,\"link\":[{\"relation\":\"self\",\"url\":\"http://host.docker.internal:52773/fhir/r4/MedicationStatement?_count=50&patient=med-safe-anticholinergic-001\"}]},\"allergies\":{\"resourceType\":\"Bundle\",\"id\":\"c7a0ec1a-58d0-11f1-975a-ca5c53d8c169\",\"type\":\"searchset\",\"timestamp\":\"2026-05-26T07:01:55Z\",\"total\":0,\"link\":[{\"relation\":\"self\",\"url\":\"http://host.docker.internal:52773/fhir/r4/AllergyIntolerance?_count=50&patient=med-safe-anticholinergic-001\"}]},\"conditions\":{\"resourceType\":\"Bundle\",\"id\":\"c7cbc5f0-58d0-11f1-975a-ca5c53d8c169\",\"type\":\"searchset\",\"timestamp\":\"2026-05-26T07:01:55Z\",\"total\":0,\"link\":[{\"relation\":\"self\",\"url\":\"http://host.docker.internal:52773/fhir/r4/Condition?_count=50&patient=med-safe-anticholinergic-001\"}]},\"familyHistory\":{\"resourceType\":\"Bundle\",\"id\":\"c7e40231-58d0-11f1-975a-ca5c53d8c169\",\"type\":\"searchset\",\"timestamp\":\"2026-05-26T07:01:55Z\",\"total\":0,\"link\":[{\"relation\":\"self\",\"url\":\"http://host.docker.internal:52773/fhir/r4/FamilyMemberHistory?_count=50&patient=med-safe-anticholinergic-001\"}]},\"observations\":{\"resourceType\":\"Bundle\",\"id\":\"c7f9ee33-58d0-11f1-975a-ca5c53d8c169\",\"type\":\"searchset\",\"timestamp\":\"2026-05-26T07:01:55Z\",\"total\":0,\"link\":[{\"relation\":\"self\",\"url\":\"http://host.docker.internal:52773/fhir/r4/Observation?_count=50&_sort=-date&patient=med-safe-anticholinergic-001\"}]},\"patient\":{\"resourceType\":\"Patient\",\"id\":\"med-safe-anticholinergic-001\",\"name\":[{\"use\":\"official\",\"family\":\"Sharir\",\"given\":[\"Erez\"]}],\"gender\":\"male\",\"birthDate\":\"1954-09-17\",\"meta\":{\"lastUpdated\":\"2026-05-26T07:00:06Z\",\"versionId\":\"2\"}}}}\n\nUSER>\n=== NARRATIVE ===\n\nUSER>\n\nExample - Medication Safety and Interaction Assistant\n\nPatient Overview\n- Patient: med-safe-anticholinergic-001\n- Evidence available: medication requests, medication statements, allergies, conditions, and observations.\n\nClinical Snapshot\nBlack Box Warnings\n- (none)\nActive Medications\n- Diphenhydramine 25 MG Oral Capsule\n- Oxybutynin chloride 5 MG Oral Tablet\n- Amitriptyline hydrochloride 25 MG Oral Tablet\nDuplicate Therapy Findings\n- (none)\nMedication Interaction Findings\n- (none)\nMedication-Food Cautions\n- (none)\nPopulation Contraindication Cautions\n- (none)\nDriving / Machinery Cautions\n  [conservative / context extras]\n- Diphenhydramine can reduce alertness. Counsel to avoid driving or hazardous tasks when drowsy.\nDrug-Condition Warnings\n- (none)\nMedication + Lab Threshold Warnings\n- (none)\nQT / Arrhythmia Cautions\n- (none)\nAnticholinergic Burden\n  [core / evidence-based]\n- Warning because summed anticholinergic burden score is 9.\n  Combined anticholinergic burden score is 9. Elevated burden may increase confusion, constipation, urinary retention, and fall risk.\nMental Health Medication Warnings\n- (none)\nFamily History + Medication Warnings\n- (none)\nAllergy Cross-Check Findings\n- (none)\nAdherence / Reconciliation Signals\n- MedicationRequest records exist but no MedicationStatement records were found. Consider adherence and reconciliation follow-up.\n\nRecommended Actions\n- [routine | monitor | SLA<=168h] Combined anticholinergic burden score is 9. Elevated burden may increase confusion, constipation, urinary retention, and fall risk.\n- [routine | monitor | SLA<=72h] Diphenhydramine can reduce alertness. Counsel to avoid driving or hazardous tasks when drowsy.\n- [routine | monitor | SLA<=72h] Perform medication reconciliation and adherence interview.\n\nCounseling Summary\n- Address any black box warnings first before routine counseling steps.\n- Review the medication list for duplicates, medication interactions, medication-food cautions, pregnancy/lactation/age contraindications, driving/heavy-machinery cautions, black box warnings, drug-condition warnings, mental-health warnings, family-history risks, allergy conflicts, or outdated therapy.\n- Confirm how the patient is taking each medicine and whether any doses were missed.\n- Keep the patient-facing explanation plain and specific to the current regimen.\n\nContext-Aware Guidance\nVector Search\n\nReview Notes\n- MedicationRequests: 3\n- MedicationStatements: 0\n- Allergies: 0\n- Conditions: 0\n- FamilyHistory: 0\n- Observations: 0\n\nUSER>\n",
+  "sourceFiles": {
+    "input": "med-safe-anticholinergic-001-input.json",
+    "output": "med-safe-anticholinergic-001-output.txt"
+  }
+}

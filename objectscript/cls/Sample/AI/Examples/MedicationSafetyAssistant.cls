@@ -185,7 +185,6 @@ ClassMethod AppendModeSection(ByRef out As %String, label As %String, arr As %Dy
     Do ..AddLine(.out, label)
 
     If strictCount>0 {
-        Do ..AddLine(.out, "  [core / evidence-based]")
         For i=0:1:(arr.%Size()-1) {
             Set item = arr.%Get(i)
             If '$ISOBJECT(item) {
@@ -199,7 +198,6 @@ ClassMethod AppendModeSection(ByRef out As %String, label As %String, arr As %Dy
     }
 
     If conservativeCount>0 {
-        Do ..AddLine(.out, "  [conservative / context extras]")
         For i=0:1:(arr.%Size()-1) {
             Set item = arr.%Get(i)
             If '$ISOBJECT(item) {
@@ -472,7 +470,6 @@ ClassMethod WriteStrictConservativeArray(label As %String, arr As %DynamicObject
 
     If strictCount > 0 {
         Set hasFindings = 1
-        Write "  [core / evidence-based]", !
         For i=0:1:(arr.%Size()-1) {
             Set item = arr.%Get(i)
             If '$ISOBJECT(item) {
@@ -487,7 +484,6 @@ ClassMethod WriteStrictConservativeArray(label As %String, arr As %DynamicObject
 
     If conservativeCount > 0 {
         Set hasFindings = 1
-        Write "  [conservative / context extras]", !
         For i=0:1:(arr.%Size()-1) {
             Set item = arr.%Get(i)
             If '$ISOBJECT(item) {

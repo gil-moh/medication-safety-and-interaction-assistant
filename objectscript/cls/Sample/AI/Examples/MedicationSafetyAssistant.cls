@@ -52,21 +52,54 @@ ClassMethod WriteNarrative(snapshot As %DynamicObject, detailMode As %String = "
     Write "- Evidence available: medication requests, medication statements, allergies, conditions, and observations.", !
 
     Write !, "Clinical Snapshot", !
-    Do ..WriteBulletArray("Black Box Warnings", blackBoxWarnings)
-    Do ..WriteBulletArray("Active Medications", medList)
-    Do ..WriteBulletArray("Duplicate Therapy Findings", dupes)
-    Do ..WriteStrictConservativeArray("Medication Interaction Findings", interactions)
-    Do ..WriteStrictConservativeArray("Medication-Food Cautions", foodInteractions)
-    Do ..WriteStrictConservativeArray("Population Contraindication Cautions", populationContraindications)
-    Do ..WriteStrictConservativeArray("Driving / Machinery Cautions", activityCautions)
-    Do ..WriteStrictConservativeArray("Drug-Condition Warnings", conditionWarnings)
-    Do ..WriteStrictConservativeArray("Medication + Lab Threshold Warnings", labWarnings)
-    Do ..WriteStrictConservativeArray("QT / Arrhythmia Cautions", qtWarnings)
-    Do ..WriteStrictConservativeArray("Anticholinergic Burden", anticholinergicWarnings)
-    Do ..WriteStrictConservativeArray("Mental Health Medication Warnings", mentalHealthWarnings)
-    Do ..WriteStrictConservativeArray("Family History + Medication Warnings", familyHistoryWarnings)
-    Do ..WriteBulletArray("Allergy Cross-Check Findings", allergies)
-    Do ..WriteBulletArray("Adherence / Reconciliation Signals", adherence)
+    Set noFindings = ""
+
+    Do ..WriteBulletArray("Black Box Warnings", blackBoxWarnings, 0, .hasFindings)
+    If 'hasFindings Do ..AppendNoFindingsLabel(.noFindings, "Black Box Warnings")
+
+    Do ..WriteBulletArray("Active Medications", medList, 1, .hasFindings)
+
+    Do ..WriteBulletArray("Duplicate Therapy Findings", dupes, 0, .hasFindings)
+    If 'hasFindings Do ..AppendNoFindingsLabel(.noFindings, "Duplicate Therapy Findings")
+
+    Do ..WriteStrictConservativeArray("Medication Interaction Findings", interactions, 0, .hasFindings)
+    If 'hasFindings Do ..AppendNoFindingsLabel(.noFindings, "Medication Interaction Findings")
+
+    Do ..WriteStrictConservativeArray("Medication-Food Cautions", foodInteractions, 0, .hasFindings)
+    If 'hasFindings Do ..AppendNoFindingsLabel(.noFindings, "Medication-Food Cautions")
+
+    Do ..WriteStrictConservativeArray("Population Contraindication Cautions", populationContraindications, 0, .hasFindings)
+    If 'hasFindings Do ..AppendNoFindingsLabel(.noFindings, "Population Contraindication Cautions")
+
+    Do ..WriteStrictConservativeArray("Driving / Machinery Cautions", activityCautions, 0, .hasFindings)
+    If 'hasFindings Do ..AppendNoFindingsLabel(.noFindings, "Driving / Machinery Cautions")
+
+    Do ..WriteStrictConservativeArray("Drug-Condition Warnings", conditionWarnings, 0, .hasFindings)
+    If 'hasFindings Do ..AppendNoFindingsLabel(.noFindings, "Drug-Condition Warnings")
+
+    Do ..WriteStrictConservativeArray("Medication + Lab Threshold Warnings", labWarnings, 0, .hasFindings)
+    If 'hasFindings Do ..AppendNoFindingsLabel(.noFindings, "Medication + Lab Threshold Warnings")
+
+    Do ..WriteStrictConservativeArray("QT / Arrhythmia Cautions", qtWarnings, 0, .hasFindings)
+    If 'hasFindings Do ..AppendNoFindingsLabel(.noFindings, "QT / Arrhythmia Cautions")
+
+    Do ..WriteStrictConservativeArray("Anticholinergic Burden", anticholinergicWarnings, 0, .hasFindings)
+    If 'hasFindings Do ..AppendNoFindingsLabel(.noFindings, "Anticholinergic Burden")
+
+    Do ..WriteStrictConservativeArray("Mental Health Medication Warnings", mentalHealthWarnings, 0, .hasFindings)
+    If 'hasFindings Do ..AppendNoFindingsLabel(.noFindings, "Mental Health Medication Warnings")
+
+    Do ..WriteStrictConservativeArray("Family History + Medication Warnings", familyHistoryWarnings, 0, .hasFindings)
+    If 'hasFindings Do ..AppendNoFindingsLabel(.noFindings, "Family History + Medication Warnings")
+
+    Do ..WriteBulletArray("Allergy Cross-Check Findings", allergies, 0, .hasFindings)
+    If 'hasFindings Do ..AppendNoFindingsLabel(.noFindings, "Allergy Cross-Check Findings")
+
+    Do ..WriteBulletArray("Adherence / Reconciliation Signals", adherence, 1, .hasFindings)
+
+    If noFindings '= "" {
+        Write "- No findings in: ", noFindings, ".", !
+    }
 
     Write !, "Recommended Actions", !
     Do ..WriteActionArray(recommendedActions)
@@ -93,11 +126,14 @@ ClassMethod WriteNarrative(snapshot As %DynamicObject, detailMode As %String = "
     }
 }
 
-ClassMethod WriteBulletArray(label As %String, arr As %DynamicObject) [ Internal ]
+ClassMethod WriteBulletArray(label As %String, arr As %DynamicObject, showNone As %Boolean = 1, Output hasFindings As %Integer = 0) [ Internal ]
 {
+    Set hasFindings = 0
     Write label, !
     If '$ISOBJECT(arr) || (arr.%Size()=0) {
-        Write "- (none)", !
+        If showNone {
+            Write "- (none)", !
+        }
         Quit
     }
     For i=0:1:(arr.%Size()-1) {
@@ -105,7 +141,11 @@ ClassMethod WriteBulletArray(label As %String, arr As %DynamicObject) [ Internal
         If '$ISOBJECT(item) {
             Continue
         }
+        Set hasFindings = 1
         Do ..WriteBulletItem(item)
+    }
+    If ('hasFindings) && showNone {
+        Write "- (none)", !
     }
 }
 
@@ -134,11 +174,14 @@ ClassMethod WriteBulletItem(item As %DynamicObject) [ Internal ]
 }
 
 /// Write findings array grouped strict warnings first, then conservative extras.
-ClassMethod WriteStrictConservativeArray(label As %String, arr As %DynamicObject) [ Internal ]
+ClassMethod WriteStrictConservativeArray(label As %String, arr As %DynamicObject, showNone As %Boolean = 1, Output hasFindings As %Integer = 0) [ Internal ]
 {
     Write label, !
+    Set hasFindings = 0
     If '$ISOBJECT(arr) || (arr.%Size()=0) {
-        Write "- (none)", !
+        If showNone {
+            Write "- (none)", !
+        }
         Quit
     }
 
@@ -158,6 +201,7 @@ ClassMethod WriteStrictConservativeArray(label As %String, arr As %DynamicObject
     }
 
     If strictCount > 0 {
+        Set hasFindings = 1
         Write "  [core / evidence-based]", !
         For i=0:1:(arr.%Size()-1) {
             Set item = arr.%Get(i)
@@ -172,6 +216,7 @@ ClassMethod WriteStrictConservativeArray(label As %String, arr As %DynamicObject
     }
 
     If conservativeCount > 0 {
+        Set hasFindings = 1
         Write "  [conservative / context extras]", !
         For i=0:1:(arr.%Size()-1) {
             Set item = arr.%Get(i)
@@ -183,6 +228,22 @@ ClassMethod WriteStrictConservativeArray(label As %String, arr As %DynamicObject
             }
             Do ..WriteBulletItem(item)
         }
+    }
+
+    If ('hasFindings) && showNone {
+        Write "- (none)", !
+    }
+}
+
+ClassMethod AppendNoFindingsLabel(ByRef noFindings As %String, label As %String) [ Internal ]
+{
+    If label = "" {
+        Quit
+    }
+    If noFindings = "" {
+        Set noFindings = label
+    } Else {
+        Set noFindings = noFindings _ ", " _ label
     }
 }
 

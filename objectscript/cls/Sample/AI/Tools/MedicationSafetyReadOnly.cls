@@ -37,7 +37,7 @@ ClassMethod GetMedicationRequests(patientId As %String, status As %String = "act
     If status '= "" {
         Set query = query _ "&status=" _ ..UrlEncode(status)
     }
-    Return ..GetFHIR("MedicationRequest?" _ query)
+    Return ..GetFHIRWithFallback("MedicationRequest?" _ query, patientId)
 }
 
 /// Get MedicationStatement resources for a patient.
@@ -51,7 +51,7 @@ ClassMethod GetMedicationStatements(patientId As %String, status As %String = "a
     If status '= "" {
         Set query = query _ "&status=" _ ..UrlEncode(status)
     }
-    Return ..GetFHIR("MedicationStatement?" _ query)
+    Return ..GetFHIRWithFallback("MedicationStatement?" _ query, patientId)
 }
 
 /// Get AllergyIntolerance resources for a patient.
@@ -62,7 +62,7 @@ ClassMethod GetAllergies(patientId As %String, limit As %Integer = 50) As %Dynam
     }
     Set max = $SELECT(limit>200:200, limit<1:1, 1:limit)
     Set query = "patient=" _ ..UrlEncode(patientId) _ "&_count=" _ max
-    Return ..GetFHIR("AllergyIntolerance?" _ query)
+    Return ..GetFHIRWithFallback("AllergyIntolerance?" _ query, patientId)
 }
 
 /// Get Condition resources for a patient.
@@ -76,7 +76,7 @@ ClassMethod GetConditions(patientId As %String, status As %String = "", limit As
     If status '= "" {
         Set query = query _ "&clinical-status=" _ ..UrlEncode(status)
     }
-    Return ..GetFHIR("Condition?" _ query)
+    Return ..GetFHIRWithFallback("Condition?" _ query, patientId)
 }
 
 /// Get FamilyMemberHistory resources for a patient.
@@ -87,7 +87,7 @@ ClassMethod GetFamilyHistory(patientId As %String, limit As %Integer = 50) As %D
     }
     Set max = $SELECT(limit>200:200, limit<1:1, 1:limit)
     Set query = "patient=" _ ..UrlEncode(patientId) _ "&_count=" _ max
-    Return ..GetFHIR("FamilyMemberHistory?" _ query)
+    Return ..GetFHIRWithFallback("FamilyMemberHistory?" _ query, patientId)
 }
 
 /// Get Observation resources for a patient.
@@ -97,11 +97,11 @@ ClassMethod GetObservations(patientId As %String, category As %String = "", limi
         Return {"error":"patientId is required"}
     }
     Set max = $SELECT(limit>200:200, limit<1:1, 1:limit)
-    Set query = "patient=" _ ..UrlEncode(patientId) _ "&_count=" _ max _ "&_sort=-date"
+    Set query = "patient=" _ ..UrlEncode(patientId) _ "&_count=" _ max
     If category '= "" {
         Set query = query _ "&category=" _ ..UrlEncode(category)
     }
-    Return ..GetFHIR("Observation?" _ query)
+    Return ..GetFHIRWithFallback("Observation?" _ query, patientId)
 }
 
 /// Get Patient resource.
@@ -2910,6 +2910,31 @@ ClassMethod SafeGet(obj As %DynamicObject, key As %String) As %String [ Internal
         Return ""
     }
     Return val
+}
+
+/// Search with automatic fallback: if the bare patient ID returns 0 entries,
+/// retries with the full "Patient/<id>" reference. Handles servers that index
+/// references differently (some require the type prefix, some do not).
+ClassMethod GetFHIRWithFallback(path As %String, patientId As %String) As %DynamicObject [ Internal ]
+{
+    Set result = ..GetFHIR(path)
+    If ..CountBundleEntries(result) > 0 {
+        Return result
+    }
+    If $ISOBJECT(result) && (..SafeGet(result, "error") '= "") {
+        Return result
+    }
+    If $EXTRACT(patientId, 1, 8) '= "Patient/" {
+        Set fullRef = "Patient/" _ patientId
+        Set altPath = $REPLACE(path, "patient=" _ ..UrlEncode(patientId), "patient=" _ ..UrlEncode(fullRef))
+        If altPath '= path {
+            Set retry = ..GetFHIR(altPath)
+            If ..CountBundleEntries(retry) > 0 {
+                Return retry
+            }
+        }
+    }
+    Return result
 }
 
 ClassMethod GetFHIR(path As %String) As %DynamicObject [ Internal ]

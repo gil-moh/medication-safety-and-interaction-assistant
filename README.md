@@ -1,6 +1,6 @@
 # Medication Safety and Interaction Assistant
 
-An AI agent built on InterSystems IRIS AI Hub that analyses a patient's FHIR medication record for safety signals. Given a patient ID, it queries a FHIR R4 server and runs deterministic checks across 12 safety categories, producing structured findings and recommended clinician actions.
+An AI agent built on InterSystems IRIS AI Hub that analyses a patient's FHIR medication record for safety signals. Given a patient ID, it queries a FHIR R4 server and runs deterministic checks across 14 safety categories, producing structured findings and recommended clinician actions.
 
 **Safety categories checked:**
 Black box warnings · Drug-drug interactions · Drug-food cautions · Population contraindications (age, pregnancy/lactation) · Activity cautions (driving, machinery) · Drug-condition warnings · Lab threshold warnings · QT/arrhythmia risk · Anticholinergic burden · Mental health warnings · Family history risks · Duplicate therapy · Allergy cross-check · Adherence signals
@@ -112,7 +112,7 @@ docker exec medication-safety-and-interaction-assistant-iris-1 bash -c \
 Each analysis produces:
 
 - **Patient Overview** — demographics and evidence inventory
-- **Clinical Snapshot** — findings across all 12 safety categories (strict warnings first, then conservative)
+- **Clinical Snapshot** — findings across all 14 safety categories (strict warnings first, then conservative)
 - **Recommended Actions** — structured list with `actionType`, `priority`, `slaHours`, `sourceRisk`
 - **Counseling Summary** — plain-language guidance for the clinician
 - **Context-Aware Guidance** — vector search snippets when configured

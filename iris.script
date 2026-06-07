@@ -1,0 +1,6 @@
+Set sc = $System.OBJ.ImportDir("/home/irisowner/src/","*.cls","ck",,1)
+Write $Select($System.Status.IsError(sc):"Import error: "_$System.Status.GetErrorText(sc),1:"Classes imported OK"),!
+ZN "%SYS"
+Do ##class(Security.Users).UnExpireUserPasswords("*")
+Write "Setup complete",!
+Halt

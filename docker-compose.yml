@@ -1,0 +1,29 @@
+services:
+  fhir:
+    image: intersystemsdc/irishealth-community:latest
+    ports:
+      - "52776:52773"
+      - "1975:1972"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:52773/fhir/r4/metadata || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
+
+  iris:
+    build: .
+    image: med-safety-assistant:latest
+    ports:
+      - "52777:52773"
+      - "1976:1972"
+    volumes:
+      - ./keys:/external/keys
+    command: -k /external/keys/iris-container-x64.key
+    environment:
+      - FHIR_BASE_URL=http://fhir:52773/fhir/r4
+      - FHIR_BASIC_USER=_SYSTEM
+      - FHIR_BASIC_PASS=SYS
+    depends_on:
+      fhir:
+        condition: service_healthy

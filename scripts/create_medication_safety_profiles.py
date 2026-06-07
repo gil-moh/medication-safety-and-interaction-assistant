@@ -32,7 +32,7 @@ from typing import Any
 
 import requests
 
-BASE_URL = "http://localhost:52773/fhir/r4"
+BASE_URL = "http://localhost:52776/fhir/r4"
 AUTH = ("_SYSTEM", "SYS")
 
 OUT_DIR = Path(__file__).resolve().parents[1] / "med_safety_io"

@@ -13,12 +13,13 @@ Submission mode: solo project.
 
 ## Architecture
 
-Two containers work together:
+One container runs the safety engine and connects to your FHIR server:
 
 | Container | Image | Purpose |
 |---|---|---|
-| `fhir` | `intersystemsdc/irishealth-community:latest` | FHIR R4 server — stores and serves patient data |
 | `iris` | `irishealth-community:2026.2.0AI.162.0` (AI Hub EAP) | Runs the ObjectScript safety engine |
+
+The container connects to a FHIR R4 server running on your host machine (or any reachable URL configured in `.env`).
 
 ## Prerequisites
 
@@ -38,18 +39,19 @@ Two containers work together:
 
 1. Clone this repository.
 2. Copy your `iris-container-x64.key` into the `keys/` folder at the repo root.
-3. Build and start both containers:
+3. Open `.env` and set `FHIR_BASE_URL` to your FHIR server's address. The default (`http://host.docker.internal:52773/fhir/r4`) points to the standard IRIS web port on your host machine — no change needed if that is where your server runs.
+4. Build and start:
    ```
    docker compose build
    docker compose up -d
    ```
-4. Wait ~60 seconds for both containers to become healthy.
-5. Load patient data into the FHIR server (see [Patient data](#patient-data) below).
-6. Run a safety analysis.
+5. Wait ~60 seconds for the container to become healthy.
+6. Load patient data into your FHIR server (see [Patient data](#patient-data) below).
+7. Run a safety analysis.
 
 ## Patient data
 
-The safety engine requires at least one patient in the `fhir` container's FHIR R4 server (`http://localhost:52776/fhir/r4`).
+The safety engine requires at least one patient in your FHIR R4 server.
 
 **Option A — Load from the included test cases**
 
@@ -59,11 +61,17 @@ Each file in `med_safety_io/` contains a ready-made FHIR patient bundle under `i
 python scripts/create_medication_safety_profiles.py
 ```
 
+By default the script posts to `http://localhost:52773/fhir/r4` (your host FHIR server). Set `FHIR_BASE_URL` in the environment to override:
+
+```
+FHIR_BASE_URL=http://localhost:52773/fhir/r4 python scripts/create_medication_safety_profiles.py
+```
+
 This creates patients covering the main safety scenarios: duplicate therapy, drug-drug interaction, allergy conflict, QT risk, anticholinergic burden, and more.
 
 **Option B — Load your own FHIR R4 patient**
 
-Use any FHIR R4 client (Postman, HAPI FHIR CLI, curl) to POST patient data to `http://localhost:52776/fhir/r4`.
+Use any FHIR R4 client (Postman, HAPI FHIR CLI, curl) to POST patient data to your FHIR server.
 
 Note the patient ID — you'll use it in the run command below.
 
@@ -96,9 +104,11 @@ docker exec medication-safety-and-interaction-assistant-iris-1 bash -c \
 
 ## Environment variables
 
+Set in `.env` (loaded automatically by Docker Compose):
+
 | Variable | Default | Purpose |
 |---|---|---|
-| `FHIR_BASE_URL` | `http://fhir:52773/fhir/r4` | FHIR R4 endpoint |
+| `FHIR_BASE_URL` | `http://host.docker.internal:52773/fhir/r4` | FHIR R4 endpoint |
 | `FHIR_BASIC_USER` | `_SYSTEM` | Basic auth username |
 | `FHIR_BASIC_PASS` | `SYS` | Basic auth password |
 | `FHIR_BEARER_TOKEN` | _(none)_ | Bearer token (alternative to basic auth) |

@@ -32,8 +32,11 @@ from typing import Any
 
 import requests
 
-BASE_URL = "http://localhost:52776/fhir/r4"
-AUTH = ("_SYSTEM", "SYS")
+import os
+BASE_URL = os.environ.get("FHIR_BASE_URL", "http://localhost:52773/fhir/r4")
+_user = os.environ.get("FHIR_BASIC_USER", "_SYSTEM")
+_pass = os.environ.get("FHIR_BASIC_PASS", "SYS")
+AUTH = (_user, _pass)
 
 OUT_DIR = Path(__file__).resolve().parents[1] / "med_safety_io"
 OUT_DIR.mkdir(parents=True, exist_ok=True)

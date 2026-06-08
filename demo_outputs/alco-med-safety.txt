@@ -1,0 +1,44 @@
+
+
+
+Example - Medication Safety and Interaction Assistant
+
+Patient Overview
+- Patient: alco-test-001
+- Evidence available: medication requests, medication statements, allergies, conditions, and observations.
+
+Clinical Snapshot
+Active Medications
+- Spironolactone 100 MG Oral Tablet
+- Thiamine 100 MG Oral Tablet
+- Omeprazole 20 MG Oral Capsule
+- Spironolactone 100 MG Oral Tablet
+- Thiamine 100 MG Oral Tablet
+- Omeprazole 20 MG Oral Capsule
+Duplicate Therapy Findings
+- Potential duplicate therapy detected. Review overlapping active medications.
+- Potential duplicate therapy detected. Review overlapping active medications.
+- Potential duplicate therapy detected. Review overlapping active medications.
+Adherence / Reconciliation Signals
+- MedicationRequest records exist but no MedicationStatement records were found. Consider adherence and reconciliation follow-up.
+- No additional findings in 12 other safety categories.
+
+Recommended Actions
+- [routine | monitor | SLA<=72h] Perform medication reconciliation and adherence interview.
+
+Counseling Summary
+- Reconcile possible duplicate therapy and confirm the intended regimen.
+- Perform medication reconciliation with patient-reported use and missed doses.
+
+Context-Aware Guidance
+Vector Search
+- Review each active medication for indication, adherence, and duplication; reconcile MedicationRequest with patient-reported use.
+
+Review Notes
+- MedicationRequests: 6
+- MedicationStatements: 0
+- Allergies: 0
+- Conditions: 8
+- FamilyHistory: 4
+- Observations: 45
+

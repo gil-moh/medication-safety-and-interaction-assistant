@@ -2944,6 +2944,9 @@ ClassMethod GetFHIR(path As %String) As %DynamicObject [ Internal ]
 
     Set req = ##class(%Net.HttpRequest).%New()
     Set req.SSLCheckServerIdentity = 0
+    If $ZCONVERT($EXTRACT(baseUrl, 1, 5), "L") = "https" {
+        Set req.SSLConfiguration = "default"
+    }
 
     Set basicUser = $SYSTEM.Util.GetEnviron("FHIR_BASIC_USER")
     If basicUser = "" {

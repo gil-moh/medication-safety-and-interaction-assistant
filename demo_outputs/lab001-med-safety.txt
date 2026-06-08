@@ -1,0 +1,42 @@
+
+
+
+Example - Medication Safety and Interaction Assistant
+
+Patient Overview
+- Patient: lab-test-001
+- Evidence available: medication requests, medication statements, allergies, conditions, and observations.
+
+Clinical Snapshot
+Active Medications
+- Metformin 500 MG
+- Metformin 500 MG Oral Tablet
+- Atorvastatin 40 MG Oral Tablet
+- Lisinopril 10 MG Oral Tablet
+Duplicate Therapy Findings
+- Potential duplicate therapy detected. Review overlapping active medications.
+Adherence / Reconciliation Signals
+- MedicationRequest records exist but no MedicationStatement records were found. Consider adherence and reconciliation follow-up.
+- Recent A1c is elevated. Review adherence, education needs, and therapy adjustments.
+- Recent A1c is elevated. Review adherence, education needs, and therapy adjustments.
+- No additional findings in 12 other safety categories.
+
+Recommended Actions
+- [routine | monitor | SLA<=72h] Perform medication reconciliation and adherence interview.
+
+Counseling Summary
+- Reconcile possible duplicate therapy and confirm the intended regimen.
+- Perform medication reconciliation with patient-reported use and missed doses.
+
+Context-Aware Guidance
+Vector Search
+- Review each active medication for indication, adherence, and duplication; reconcile MedicationRequest with patient-reported use.
+
+Review Notes
+- MedicationRequests: 4
+- MedicationStatements: 0
+- Allergies: 0
+- Conditions: 4
+- FamilyHistory: 0
+- Observations: 43
+
